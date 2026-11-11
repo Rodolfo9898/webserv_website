@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Welcome</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background-color: #4a113d;
+			background-size: cover;
+			color: #ffffff;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			overflow: hidden;
+		}
+
+		.container {
+			text-align: center;
+			background: rgba(0, 0, 0, 0.7);
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+		}
+
+		h1 {
+			font-size: 3em;
+			margin-bottom: 20px;
+			animation: fadeInDown 1s ease-in-out;
+		}
+
+		p {
+			font-size: 1.2em;
+			margin-bottom: 30px;
+			animation: fadeInUp 1s ease-in-out;
+		}
+
+		button {
+			font-size: 1em;
+			padding: 10px 20px;
+			color: #fff;
+			background-color: #007bff;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			animation: fadeIn 2s ease-in-out;
+			transition: background-color 0.3s ease;
+			margin: 10px;
+		}
+
+		button:hover {
+			background-color: #0056b3;
+		}
+
+		/* Animations */
+		@keyframes fadeInDown {
+			from {
+				opacity: 0;
+				transform: translateY(-20px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Welcome to My Server</h1>
+		<p>This is the home page served from index.html.</p>
+		<button onclick="window.location.href = '/get';">Go to GET Page</button>
+		<button onclick="window.location.href = '/post';">Go to POST Page</button>
+		<button onclick="window.location.href = '/delete';">Go to DELETE Page</button>
+		<button onclick="window.location.href = '/cgi';">Go to CGI Page</button>
+		<button onclick="window.location.href = '/cookie-clicker';">Go to Cookie clicker Page</button>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cookie Clicker</title>
+	<style>
+		/* Basic Reset */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		/* Background and body styling */
+		body {
+			background-color: #064f12;
+			font-family: 'Arial', sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			flex-direction: column;
+		}
+
+		/* Container for the entire game */
+		.game-container {
+			text-align: center;
+			background-color: #ffffff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+		}
+
+		/* Title styling */
+		h1 {
+			font-size: 3rem;
+			color: #333;
+			margin-bottom: 20px;
+		}
+
+		/* Styling the cookie button */
+		#cookie-button {
+			background: none;
+			border: none;
+			cursor: pointer;
+			outline: none;
+			margin: 20px 0;
+		}
+
+		/* Cookie image style */
+		#cookie-button img {
+			width: 150px;
+			transition: transform 0.2s ease;
+		}
+
+		/* Click effect on cookie */
+		#cookie-button:active img {
+			transform: scale(0.9);
+			/* shrink the cookie when clicked */
+		}
+
+		/* Counter text styling */
+		p {
+			font-size: 1.8rem;
+			color: #555;
+		}
+
+		/* Highlight for the count */
+		#cookie-count {
+			font-weight: bold;
+			color: #000000;
+		}
+
+		/* Button for resetting */
+		.reset-button {
+			font-size: 1.2rem;
+			padding: 10px 20px;
+			background-color: #007bff;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: 15px;
+		}
+
+		/* Hover effect for reset button */
+		.reset-button:hover {
+			background-color: #0056b3;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="game-container">
+		<h1>Cookie Clicker</h1>
+
+		<!-- Cookie Button -->
+		<div class="cookie-container">
+			<button id="cookie-button">
+				<img src="../Cookie.png" alt="Click Cookie">
+			</button>
+		</div>
+		<div>
+			<!-- Counter -->
+			<p>Cookies: <span id="cookie-count">0</span></p>
+			<!-- Reset Button -->
+			<button class="reset-button" id="reset-button">Reset</button>
+		</div>
+		<button class="reset-button" onclick="window.location.href = '/';">Go Back Home</button>
+	</div>
+
+	<script>
+		// Helper functions to set and get cookies
+		function setCookie(name, value, days) {
+			const date = new Date();
+			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // expires in X days
+			const expires = "; expires=" + date.toUTCString();
+			document.cookie = name + "=" + value + expires + "; path=/";
+		}
+
+		function getCookie(name) {
+			const nameEQ = name + "=";
+			const ca = document.cookie.split(';');
+			for (let i = 0; i < ca.length; i++) {
+				let c = ca[i];
+				while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+				if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			document.cookie = name + '=; Max-Age=-99999999;';
+		}
+
+		// Initialize the cookie count from the saved cookie, or start at 0 if none
+		let cookieCount = parseInt(getCookie('cookieCount')) || 0;
+
+		// Update the cookie count display
+		const cookieButton = document.getElementById('cookie-button');
+		const cookieCountDisplay = document.getElementById('cookie-count');
+		const resetButton = document.getElementById('reset-button');
+
+		// Set initial display value
+		cookieCountDisplay.textContent = cookieCount;
+
+		// Function to handle the click event
+		cookieButton.addEventListener('click', () => {
+			cookieCount++;
+			cookieCountDisplay.textContent = cookieCount;
+
+			// Save the new count in the cookie (expires in 365 days)
+			setCookie('cookieCount', cookieCount, 365);
+		});
+
+		// Reset button functionality
+		resetButton.addEventListener('click', () => {
+			cookieCount = 0;
+			cookieCountDisplay.textContent = cookieCount;
+			eraseCookie('cookieCount');  // Delete the cookie
+		});
+	</script>
+</body>
+
+</html>

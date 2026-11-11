@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CGI Get</title>
+	<style>
+		/* Basic Reset */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		/* Background and body styling */
+		body {
+			background-color: #401e4d;
+			font-family: 'Arial', sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			flex-direction: column;
+		}
+
+		/* Container for the entire game */
+		.game-container {
+			text-align: center;
+			background-color: #ffffff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+		}
+
+		/* Title styling */
+		h1 {
+			font-size: 3rem;
+			color: #333;
+			margin-bottom: 20px;
+		}
+
+		/* Counter text styling */
+		p {
+			font-size: 1.8rem;
+			color: #555;
+		}
+
+		/* Button for resetting */
+		.reset-button {
+			font-size: 1.2rem;
+			padding: 10px 20px;
+			background-color: #007bff;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+			margin-top: 15px;
+		}
+
+		/* Hover effect for reset button */
+		.reset-button:hover {
+			background-color: #0056b3;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="game-container">

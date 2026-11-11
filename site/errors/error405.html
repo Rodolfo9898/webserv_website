@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Error 405 - Method Not Allowed</title>
+	<style>
+		/* Reset some basic styles */
+		body,
+		h1,
+		p {
+			margin: 0;
+			padding: 0;
+			font-family: 'Arial', sans-serif;
+		}
+
+		/* Basic page styling */
+		body {
+			background-color: #1e272e;
+			/* Dark grey background */
+			color: #ffffff;
+			/* White text */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			margin: 0;
+		}
+
+		.container {
+			text-align: center;
+		}
+
+		.error-content {
+			background: #485460;
+			/* Darker grey background for the error box */
+			padding: 2em 3em;
+			border-radius: 12px;
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+		}
+
+		.error-content:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+		}
+
+		h1 {
+			font-size: 3.5em;
+			color: #ff4757;
+			/* Bright red for error code */
+			margin-bottom: 0.5em;
+		}
+
+		p {
+			font-size: 1.3em;
+			color: #d2dae2;
+			/* Light grey for the message */
+			margin-bottom: 1.5em;
+		}
+
+		a.back-home {
+			display: inline-block;
+			padding: 0.75em 1.5em;
+			background-color: #ff6348;
+			/* Orange button */
+			color: #ffffff;
+			text-decoration: none;
+			border-radius: 8px;
+			font-weight: bold;
+			transition: background-color 0.3s ease;
+		}
+
+		a.back-home:hover {
+			background-color: #e84118;
+			/* Darker red-orange on hover */
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="error-content">
+			<h1>Error 405</h1>
+			<p>The method you attempted to use is not allowed.</p>
+			<a href="/" class="back-home">Go Back Home</a>
+		</div>
+	</div>
+</body>
+
+</html>

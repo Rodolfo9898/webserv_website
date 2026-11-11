@@ -1,0 +1,10 @@
+# What the server writes while it runs: the uploads (the folder is kept by its placeholder)
+/uploads/*
+!/uploads/.placeholder
+
+# Editors and OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*~

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>413 Payload Too Large</title>
+	<style>
+		/* Reset some basic styles */
+		body,
+		h1,
+		p {
+			margin: 0;
+			padding: 0;
+			font-family: Arial, sans-serif;
+		}
+
+		/* Basic page styling */
+		body {
+			background-color: #8d6f23;
+			/* Brownish background */
+			color: #ecf0f1;
+			/* Light grey text */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.container {
+			text-align: center;
+		}
+
+		.error-content {
+			background: #34495e;
+			/* Slightly lighter background for the error box */
+			padding: 2em 3em;
+			border-radius: 10px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		h1 {
+			font-size: 4em;
+			color: #e74c3c;
+			/* Bright red color */
+			margin-bottom: 0.5em;
+		}
+
+		p {
+			font-size: 1.2em;
+			color: #bdc3c7;
+			/* Light grey for the text */
+			margin-bottom: 1.5em;
+		}
+
+		a.back-home {
+			display: inline-block;
+			padding: 0.75em 1.5em;
+			background-color: #3498db;
+			/* Blue button */
+			color: white;
+			text-decoration: none;
+			border-radius: 5px;
+			font-weight: bold;
+			transition: background-color 0.3s ease;
+		}
+
+		a.back-home:hover {
+			background-color: #2980b9;
+			/* Darker blue on hover */
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="error-content">
+			<h1>Error 413</h1>
+			<p>Payload too large. Please try something smaller.</p>
+			<a href="/" class="back-home">Go Back Home</a>
+		</div>
+	</div>
+</body>
+
+</html>
