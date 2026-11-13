@@ -1,76 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="no-js">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>CGI Execution Choice</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #4a113d;
-			background-size: cover;
-			color: #ffffff;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			overflow: hidden;
-		}
-
-		.container {
-			text-align: center;
-			background: rgba(0, 0, 0, 0.7);
-			padding: 30px;
-			border-radius: 10px;
-			box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-		}
-
-		h1 {
-			font-size: 3em;
-			margin-bottom: 20px;
-		}
-
-		form {
-			margin-bottom: 20px;
-		}
-
-		input[type="text"],
-		input[type="submit"] {
-			padding: 10px;
-			font-size: 1em;
-			margin: 10px;
-		}
-
-		button {
-			font-size: 1em;
-			padding: 10px 20px;
-			color: #fff;
-			background-color: #007bff;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			margin-top: 20px;
-			transition: background-color 0.3s ease;
-		}
-
-		button:hover {
-			background-color: #0056b3;
-		}
-	</style>
+	<meta name="color-scheme" content="dark light">
+	<title>CGI · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="cgi" defer></script>
 </head>
 
-<body>
-	<div class="container">
-		<h1>Choose how to execute the CGI</h1>
-		<div>
-			<button onclick="window.location.href = '/cgiPython';">Python</button>
-			<button onclick="window.location.href = '/cgiPerl';">Perl</button>
+<body data-nav="cgi">
+	<main class="page">
+		<header class="page-head" data-reveal>
+			<span class="eyebrow"><i data-icon="terminal"></i> CGI</span>
+			<h1>Run programs, <span class="grad-text">not just files.</span></h1>
+			<p class="lead">When a route says a file extension is a CGI, the server stops reading the file and runs it instead. The script's output becomes the response. Pick an interpreter below, or watch how it works first.</p>
+		</header>
+
+		<section class="card pad-lg" data-reveal>
+			<div class="row between">
+				<h3>The journey of one CGI request</h3>
+				<div class="row"><button class="btn sm" id="play"><i data-icon="play"></i> Replay</button></div>
+			</div>
+			<div class="flow" id="flow"></div>
+			<div class="flow-detail" id="detail"></div>
+		</section>
+
+		<div class="grid c3 mt-lg">
+			<a class="card spot lift" href="/cgiPython" data-reveal>
+				<div class="ico-lg"><i data-icon="code"></i></div>
+				<h3>Python</h3>
+				<p>A GET script that reads <code>QUERY_STRING</code> and a POST script that receives an uploaded image.</p>
+				<span class="more">Open the forms <i data-icon="arrow"></i></span>
+			</a>
+			<a class="card spot lift" href="/cgiPerl" data-reveal>
+				<div class="ico-lg"><i data-icon="terminal"></i></div>
+				<h3>Perl</h3>
+				<p>The same contract in another language: the server does not care what the script is written in.</p>
+				<span class="more">Open the form <i data-icon="arrow"></i></span>
+			</a>
+			<a class="card spot lift" href="/bonus" data-reveal data-bonus="1" hidden>
+				<span class="chip bonus" style="position:absolute;top:20px;right:20px">Bonus</span>
+				<div class="ico-lg"><i data-icon="gift"></i></div>
+				<h3>More CGI types</h3>
+				<p>With a bonus config the same route also runs Perl and shell scripts, with cookies and sessions.</p>
+				<span class="more">Open the bonus hub <i data-icon="arrow"></i></span>
+			</a>
 		</div>
-		<button onclick="window.location.href = '/';">Go Back Home</button>
-	</div>
+
+		<section class="section">
+			<div class="sec-head" data-reveal><h2>What a script can rely on</h2><p>The CGI convention: request data arrives as environment variables, the body arrives on standard input, and anything printed to standard output is the answer.</p></div>
+			<div class="grid c2">
+				<div class="card" data-reveal><h3>Environment</h3><div class="env-grid" id="env"></div></div>
+				<div class="card" data-reveal>
+					<h3>Route that enables it</h3>
+					<pre class="code-block"><span class="k">Route</span> /cgi-bin ;
+<span class="k">method</span> [GET,POST] ;
+<span class="k">entry</span> ./cgi ;
+<span class="k">defPage</span> /get.py ;
+<span class="k">cgi-bin</span> allowed <span class="s">.py</span> ;
+<span class="k">ENDRoute</span> ;</pre>
+					<p class="mt">The extension after <code>allowed</code> is what turns a file into a program.</p>
+				</div>
+			</div>
+		</section>
+	</main>
 </body>
 
 </html>

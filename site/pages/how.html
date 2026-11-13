@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="color-scheme" content="dark light">
+	<title>How it works · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="how" defer></script>
+</head>
+
+<body data-nav="how">
+	<main class="page">
+		<header class="page-head" data-reveal>
+			<span class="eyebrow"><i data-icon="activity"></i> How it works</span>
+			<h1>One loop, <span class="grad-text">every connection.</span></h1>
+			<p class="lead">webserv never blocks and never forks per client. A single poll() watches every socket and pipe, and the server does a little work on whichever one is ready.</p>
+		</header>
+
+		<section class="card pad-lg" data-reveal id="loop"></section>
+
+		<section class="section">
+			<div class="sec-head" data-reveal><h2>The life of a request</h2><p>Click through the six stages. Each one shows the configuration line that controls it.</p></div>
+			<div id="life" data-reveal></div>
+		</section>
+
+		<section class="section">
+			<div class="sec-head" data-reveal><h2>Reading a config file</h2><p>The whole behaviour of the server is declared in one file. Hover a line to see what it does.</p></div>
+			<div id="cfg" data-reveal></div>
+		</section>
+	</main>
+</body>
+
+</html>

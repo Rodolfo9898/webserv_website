@@ -1,92 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="no-js">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>CGI Python Demo</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #434a11;
-			background-size: cover;
-			color: #ffffff;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			overflow: hidden;
-		}
-
-		.container {
-			text-align: center;
-			background: rgba(0, 0, 0, 0.7);
-			padding: 30px;
-			border-radius: 10px;
-			box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-		}
-
-		h1 {
-			font-size: 3em;
-			margin-bottom: 20px;
-		}
-
-		form {
-			margin-bottom: 20px;
-		}
-
-		input[type="text"],
-		input[type="submit"] {
-			padding: 10px;
-			font-size: 1em;
-			margin: 10px;
-		}
-
-		button {
-			font-size: 1em;
-			padding: 10px 20px;
-			color: #fff;
-			background-color: #007bff;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			margin-top: 20px;
-			transition: background-color 0.3s ease;
-		}
-
-		button:hover {
-			background-color: #0056b3;
-		}
-	</style>
+	<meta name="color-scheme" content="dark light">
+	<title>Python CGI · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="cgiforms" defer></script>
 </head>
 
-<body>
-	<div class="container">
-		<h1>Execute a Python CGI Script</h1>
-		<form action="/cgi-bin/get.py" method="GET">
-			<input type="text" name="name" placeholder="Enter some data" required>
-			<input type="submit" value="Execute Get CGI Script">
-		</form>
-		<form id="uploadForm" enctype="multipart/form-data" action="/cgi-bin/post.py" method="POST">
-			<input type="file" id="fileInput" accept="image/*" name="uploadedfile" required>
-			<input type="submit" value="Execute Post CGI Script">
-		</form>
-		<button onclick="window.location.href = '/';">Go Back Home</button>
-		<button onclick="window.location.href = '/cgi';">Back to Cgi choice</button>
-	</div>
-	<script>
-		document.getElementById('uploadForm').addEventListener('submit', function (event) {
-			const fileInput = document.getElementById('fileInput');
-			const fileName = fileInput.files[0].name;
+<body data-nav="cgipython">
+	<main class="page">
+		<header class="page-head" data-reveal>
+			<span class="eyebrow"><i data-icon="code"></i> CGI · Python</span>
+			<h1>Execute a <span class="grad-text">Python script.</span></h1>
+			<p class="lead">Two scripts live behind <code>/cgi-bin</code>. One answers a GET with what you typed; the other receives an uploaded image through a POST body.</p>
+		</header>
 
-			if (fileName.includes(' ')) {
-				alert('The file name should not contain spaces. Please rename your file and try again.');
-				event.preventDefault();
-			}
-		});
-	</script>
+		<div class="grid c2">
+			<section class="card pad-lg" data-reveal>
+				<h3><span class="method get">GET</span> get.py</h3>
+				<p class="sub dim">Your text travels in the query string, so the script reads it from <code>QUERY_STRING</code>.</p>
+				<form class="stack mt" action="/cgi-bin/get.py" method="GET" data-cgi>
+					<label class="field"><span>name</span><input class="input" type="text" name="name" placeholder="Enter some data" required></label>
+					<div class="row"><button class="btn sm" type="button" data-fill="ada">ada</button><button class="btn sm" type="button" data-fill="hello webserv">hello webserv</button></div>
+					<label class="row"><input type="checkbox" data-inline> Inspect here instead of opening the result page</label>
+					<button class="btn primary" type="submit"><i data-icon="play"></i> Execute the GET script</button>
+				</form>
+			</section>
+
+			<section class="card pad-lg" data-reveal>
+				<h3><span class="method post">POST</span> post.py</h3>
+				<p class="sub dim">The image is the request body: the server pipes it to the script's standard input.</p>
+				<form class="stack mt" action="/cgi-bin/post.py" method="POST" enctype="multipart/form-data" data-cgi>
+					<label class="field"><span>uploadedfile</span><input class="input" type="file" name="uploadedfile" accept="image/*" required></label>
+					<label class="row"><input type="checkbox" data-inline> Inspect here instead of opening the result page</label>
+					<button class="btn primary" type="submit"><i data-icon="play"></i> Execute the POST script</button>
+				</form>
+			</section>
+		</div>
+
+		<section class="section">
+			<div class="sec-head" data-reveal><h2>Raw answer</h2><p>The script's output with the status and headers the server put around it.</p></div>
+			<div id="out"></div>
+		</section>
+
+		<div class="row mt-lg">
+			<a class="btn" href="/cgi"><i data-icon="back"></i> How CGI works</a>
+			<a class="btn ghost" href="/cgiPerl">Try Perl instead</a>
+		</div>
+	</main>
 </body>
 
 </html>

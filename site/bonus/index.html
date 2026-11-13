@@ -1,100 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="no-js">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Bonus</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 20px;
-			box-sizing: border-box;
-			background-color: #4a113d;
-			color: #ffffff;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			min-height: 100vh;
-		}
-
-		.container {
-			text-align: center;
-			background: rgba(0, 0, 0, 0.7);
-			padding: 30px;
-			border-radius: 10px;
-			box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-			max-width: 760px;
-		}
-
-		h1 {
-			font-size: 3em;
-			margin: 0 0 20px;
-		}
-
-		.example {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			gap: 20px;
-			text-align: left;
-			padding: 12px 0;
-			border-bottom: 1px solid #7a3a6b;
-		}
-
-		.example p {
-			margin: 0;
-			font-size: 1.1em;
-		}
-
-		a.button {
-			display: inline-block;
-			font-size: 1em;
-			padding: 10px 20px;
-			color: #fff;
-			background-color: #007bff;
-			border-radius: 5px;
-			text-decoration: none;
-			white-space: nowrap;
-			transition: background-color 0.3s ease;
-		}
-
-		a.button:hover {
-			background-color: #0056b3;
-		}
-
-		.home {
-			margin-top: 25px;
-		}
-	</style>
+	<meta name="color-scheme" content="dark light">
+	<title>Bonus · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="bonus" defer></script>
 </head>
 
-<body>
-	<div class="container">
-		<h1>Bonus</h1>
-		<div class="example">
-			<p>A session kept by the server, shown by a Python script.</p>
-			<a class="button" href="/cgi-bin/bonus/session.py">Session in Python</a>
-		</div>
-		<div class="example">
-			<p>The same session, shown by a Perl script: it belongs to the server, not to the language.</p>
-			<a class="button" href="/cgi-bin/bonus/session.pl">Session in Perl</a>
-		</div>
-		<div class="example">
-			<p>The cookies your browser sends, and a form to set and delete them.</p>
-			<a class="button" href="/cgi-bin/bonus/cookies.py">Cookies</a>
-		</div>
-		<div class="example">
-			<p>A page made by a shell script, the third kind of CGI.</p>
-			<a class="button" href="/cgi-bin/bonus/hello.sh">Shell script</a>
-		</div>
-		<div class="example">
-			<p>A cookie clicker whose score lives in your session, so it survives a reload.</p>
-			<a class="button" href="/bonus/cookie-clicker.html">Cookie clicker</a>
-		</div>
-		<a class="button home" href="/">Go Back Home</a>
-	</div>
+<!-- Route /bonus (bonus configs only) serves this page. -->
+<body data-nav="bonus-hub" data-edition="bonus">
+	<main class="page">
+		<header class="page-head" data-reveal>
+			<span class="eyebrow"><i data-icon="gift"></i> Bonus</span>
+			<h1>Cookies, sessions and <span class="grad-text">more CGI types.</span></h1>
+			<p class="lead">The bonus part: the server understands cookies, keeps sessions, and runs more than one kind of CGI. Each card below is a real script. Open it, or run it here and read the raw answer.</p>
+		</header>
+
+		<div class="script-grid" id="scripts"></div>
+		<div class="run-out" id="out"></div>
+
+		<section class="section">
+			<div class="sec-head" data-reveal><h2>Play with sessions and cookies</h2><p>Two clickers keep their score in two different places. The jar shows what your browser sends along.</p></div>
+			<div class="grid c3">
+				<a class="card spot lift" href="/bonus/cookie-clicker.html" data-reveal>
+					<div class="ico-lg"><i data-icon="cookie"></i></div><h3>Session clicker</h3>
+					<p>The score is stored by the server in your session and read back through a CGI script.</p>
+					<span class="more">Play <i data-icon="arrow"></i></span>
+				</a>
+				<a class="card spot lift" href="/cookie-clicker" data-reveal>
+					<div class="ico-lg"><i data-icon="cookie"></i></div><h3>Cookie clicker</h3>
+					<p>The same game with the score kept in a browser cookie instead.</p>
+					<span class="more">Play <i data-icon="arrow"></i></span>
+				</a>
+				<div class="card" data-reveal>
+					<div class="ico-lg"><i data-icon="lock"></i></div><h3>Cookie jar</h3>
+					<p class="mb">Set a cookie here, then open the <strong>Cookies</strong> script: the server shows it back to you.</p>
+					<div id="jar" class="mt"></div>
+				</div>
+			</div>
+		</section>
+
+		<div class="row mt-lg"><a class="btn" href="/"><i data-icon="home"></i> Home</a></div>
+	</main>
 </body>
 
 </html>

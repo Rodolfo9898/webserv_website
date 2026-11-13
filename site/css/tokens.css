@@ -1,0 +1,126 @@
+/* Design tokens + reset. Everything visual hangs on these variables (dark by default, light via [data-theme]). */
+:root {
+  color-scheme: dark;
+  --bg: #07080f;
+  --bg-elev: #0e1020;
+  --surface: rgba(255, 255, 255, .045);
+  --surface-2: rgba(255, 255, 255, .08);
+  --surface-solid: #12142a;
+  --border: rgba(255, 255, 255, .09);
+  --border-strong: rgba(255, 255, 255, .2);
+  --text: #eceef9;
+  --text-dim: #aab0c9;
+  --text-mute: #7a819f;
+  --grid: rgba(139, 120, 255, .09);
+
+  --brand-1: #8b5cf6;
+  --brand-2: #22d3ee;
+  --brand-3: #f472b6;
+  --grad: linear-gradient(120deg, var(--brand-1), var(--brand-2));
+  --grad-warm: linear-gradient(120deg, var(--brand-3), var(--brand-1));
+
+  --ok: #34d399;
+  --info: #38bdf8;
+  --warn: #fbbf24;
+  --bad: #f87171;
+  --m-get: #34d399;
+  --m-post: #60a5fa;
+  --m-delete: #f87171;
+  --m-put: #fbbf24;
+  --m-other: #c4b5fd;
+
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 28px;
+  --shadow: 0 18px 50px -18px rgba(0, 0, 0, .7);
+  --glow: 0 0 0 1px rgba(139, 92, 246, .4), 0 10px 44px -10px rgba(139, 92, 246, .55);
+  --orb-opacity: .34;
+  --chart-1: #22d3ee;
+  --chart-2: #a78bfa;
+  --chart-grid: rgba(255, 255, 255, .08);
+
+  --font: ui-sans-serif, system-ui, -apple-system, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --header-h: 66px;
+  --maxw: 1180px;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f4fb;
+  --bg-elev: #ffffff;
+  --surface: rgba(255, 255, 255, .72);
+  --surface-2: rgba(20, 20, 60, .06);
+  --surface-solid: #ffffff;
+  --border: rgba(30, 30, 80, .12);
+  --border-strong: rgba(30, 30, 80, .26);
+  --text: #15162b;
+  --text-dim: #444a6b;
+  --text-mute: #6a7090;
+  --grid: rgba(90, 70, 200, .09);
+  --shadow: 0 18px 50px -22px rgba(40, 40, 110, .35);
+  --glow: 0 0 0 1px rgba(124, 58, 237, .35), 0 10px 40px -12px rgba(124, 58, 237, .35);
+  --orb-opacity: .22;
+  --chart-1: #0e7490;
+  --chart-2: #6d28d9;
+  --chart-grid: rgba(30, 30, 80, .1);
+  --ok: #059669;
+  --info: #0284c7;
+  --warn: #b45309;
+  --bad: #dc2626;
+  --m-get: #059669;
+  --m-post: #2563eb;
+  --m-delete: #dc2626;
+  --m-put: #b45309;
+  --m-other: #7c3aed;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img, svg, canvas, video, iframe { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+a { color: inherit; }
+ul, ol { padding: 0; list-style: none; }
+table { border-collapse: collapse; width: 100%; }
+[hidden] { display: none !important; }
+
+::selection { background: rgba(139, 92, 246, .45); color: #fff; }
+
+:focus-visible {
+  outline: 2px solid var(--brand-2);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

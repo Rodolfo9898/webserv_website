@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="color-scheme" content="dark light">
+	<title>Route explorer · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="routes" defer></script>
+</head>
+
+<body data-nav="routes">
+	<main class="page">
+		<header class="page-head" data-reveal>
+			<span class="eyebrow"><i data-icon="route"></i> Configuration</span>
+			<h1>Every route, <span class="grad-text">live.</span></h1>
+			<p class="lead">This is what the configuration file declares: URL prefixes, the methods each accepts, the folder behind it and what it does there. Press <strong>Try it</strong> to send a real request and see the answer.</p>
+		</header>
+
+		<div class="routes-toolbar" data-reveal>
+			<div class="tabs" id="filters" role="tablist"></div>
+			<input class="input" id="q" type="search" placeholder="Filter routes..." aria-label="Filter routes">
+		</div>
+
+		<div class="table-wrap" data-reveal>
+			<table class="table rtable">
+				<thead><tr><th>Route</th><th>Methods</th><th>Maps to</th><th>Does</th><th></th></tr></thead>
+				<tbody id="rows"></tbody>
+			</table>
+		</div>
+		<p class="err-note" id="count"></p>
+		<div class="callout mt" data-reveal><i data-icon="info"></i><p>The server does not serve its own config, so this page keeps a copy in <code>js/data/config.js</code>. Change a <code>.conf</code> file and that copy is the one place to update.</p></div>
+	</main>
+</body>
+
+</html>

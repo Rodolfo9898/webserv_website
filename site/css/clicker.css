@@ -1,0 +1,39 @@
+/* Cookie clicker (browser cookie + server session variants), cookie jar, bonus script cards. */
+.clicker { display: grid; justify-items: center; gap: 14px; text-align: center; }
+.cookie-btn { position: relative; width: min(300px, 70vw); aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; background: none; transition: transform .15s var(--ease); -webkit-tap-highlight-color: transparent; }
+.cookie-btn img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .55)) drop-shadow(0 0 40px rgba(244, 170, 90, .25)); user-select: none; -webkit-user-drag: none; transition: filter .3s; animation: float 5s ease-in-out infinite; }
+.cookie-btn:hover { transform: scale(1.05) rotate(-3deg); }
+.cookie-btn:hover img { filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .55)) drop-shadow(0 0 60px rgba(244, 170, 90, .5)); }
+.cookie-btn:active { transform: scale(.93) rotate(2deg); }
+.particles { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.plus { position: absolute; font-weight: 800; font-size: 1.5rem; color: var(--warn); text-shadow: 0 2px 12px rgba(0, 0, 0, .5); animation: rise .9s ease-out forwards; }
+.counter { line-height: 1; }
+.clicks { display: block; font-size: clamp(3rem, 8vw, 4.8rem); font-weight: 800; letter-spacing: -.04em; background: var(--grad-warm); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.counter small { font-size: .9rem; letter-spacing: .1em; text-transform: uppercase; }
+.badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.click-status { max-width: 46ch; font-size: .9rem; }
+.click-status.ok { color: var(--text-dim); }
+.click-status.warn { color: var(--warn); }
+
+.jar { display: grid; gap: 12px; }
+.jar-header { display: block; padding: 12px 14px; border-radius: var(--r-sm); word-break: break-all; line-height: 1.6; }
+.jar-rows { display: grid; gap: 6px; }
+.jar-row { display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--r-sm); font-size: .84rem; }
+.jar-row .icon-btn { width: 30px; height: 30px; border-radius: 8px; }
+.jar-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; }
+.jar-form .input { padding: .55em .8em; }
+.play-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+
+/* ---- Bonus script cards ---- */
+.script-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.script-card { display: flex; flex-direction: column; gap: 10px; }
+.script-card .top { display: flex; justify-content: space-between; align-items: center; }
+.script-card code.path { align-self: flex-start; }
+.script-card p { flex: 1; }
+.script-card .row { margin-top: 4px; }
+.run-out { margin-top: 20px; }
+
+@media (max-width: 900px) {
+  .play-grid, .script-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) { .jar-form { grid-template-columns: 1fr; } }

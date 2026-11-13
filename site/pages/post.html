@@ -1,88 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="no-js">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>POST Request Demo</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #4a113d;
-			background-size: cover;
-			color: #ffffff;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			overflow: hidden;
-		}
-
-		.container {
-			text-align: center;
-			background: rgba(0, 0, 0, 0.7);
-			padding: 30px;
-			border-radius: 10px;
-			box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-		}
-
-		h1 {
-			font-size: 3em;
-			margin-bottom: 20px;
-		}
-
-		form {
-			margin-bottom: 20px;
-		}
-
-		input[type="file"],
-		input[type="submit"] {
-			padding: 10px;
-			font-size: 1em;
-			margin: 10px;
-		}
-
-		button {
-			font-size: 1em;
-			padding: 10px 20px;
-			color: #fff;
-			background-color: #007bff;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			margin-top: 20px;
-			transition: background-color 0.3s ease;
-		}
-
-		button:hover {
-			background-color: #0056b3;
-		}
-	</style>
+	<meta name="color-scheme" content="dark light">
+	<title>Create · POST · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="post" defer></script>
 </head>
 
-<body>
-	<div class="container">
-		<h1>Upload a File</h1>
-		<form id="uploadForm" action="/succesPost" method="POST" enctype="multipart/form-data">
-			<input type="file" id="fileInput" name="binary" required>
-			<input type="submit" value="Post">
-		</form>
-		<button onclick="window.location.href = '/';">Go Back Home</button>
-	</div>
+<body data-nav="post">
+	<main class="page">
+		<header class="page-head" data-reveal>
+			<span class="eyebrow"><i data-icon="upload"></i> Create · POST</span>
+			<h1>Send a file to <span class="grad-text">the server.</span></h1>
+			<p class="lead">A POST with a multipart body. The server reads it, enforces the body-size limit, and saves the file in the folder this route names.</p>
+		</header>
 
-	<script>
-		document.getElementById('uploadForm').addEventListener('submit', function (event) {
-			const fileInput = document.getElementById('fileInput');
-			const fileName = fileInput.files[0].name;
+		<div class="crud-grid">
+			<section class="card pad-lg" data-reveal>
+				<h3><span class="method post">POST</span> Upload</h3>
+				<p class="sub">Drag files in, or click. Names with spaces are fixed on the way out, because the server expects names without them.</p>
+				<div id="dz"></div>
+				<div id="queue"></div>
+				<noscript>
+					<form action="/succesPost" method="POST" enctype="multipart/form-data">
+						<input type="file" name="binary" required> <input type="submit" value="Post">
+					</form>
+				</noscript>
+				<div class="row mt">
+					<a class="btn" href="/pages/crud.html"><i data-icon="layers"></i> Manage the files</a>
+					<a class="btn ghost" href="/uploads"><i data-icon="folder"></i> Raw listing</a>
+				</div>
+			</section>
 
-			if (fileName.includes(' ')) {
-				alert('The file name should not contain spaces. Please rename your file and try again.');
-				event.preventDefault();
-			}
-		});
-	</script>
+			<section class="card pad-lg" data-reveal>
+				<h3>What goes over the wire</h3>
+				<p class="sub">The browser builds this request for you. The boundary string separates the parts.</p>
+				<pre class="code-block"><span class="k">POST</span> /succesPost HTTP/1.1
+<span class="k">Host</span>: localhost:4442
+<span class="k">Content-Type</span>: multipart/form-data; boundary=<span class="n">----X9f2</span>
+<span class="k">Content-Length</span>: <span class="n">48213</span>
+
+<span class="n">------X9f2</span>
+<span class="k">Content-Disposition</span>: form-data; name=<span class="s">"binary"</span>; filename=<span class="s">"photo.png"</span>
+<span class="k">Content-Type</span>: image/png
+
+<span class="c">&lt;48 000 raw bytes&gt;</span>
+<span class="n">------X9f2--</span></pre>
+				<div class="stack mt">
+					<div class="callout"><i data-icon="info"></i><p>The route's <code>uploadPath</code> decides the destination folder, and <code>bodySize</code> decides how big a body is accepted. Over the limit the server answers <strong>413</strong>.</p></div>
+				</div>
+			</section>
+		</div>
+
+		<section class="section">
+			<div class="sec-head" data-reveal>
+				<h2>Last exchange</h2>
+				<p>What the server answered to the most recent upload.</p>
+			</div>
+			<div id="last"></div>
+		</section>
+	</main>
 </body>
 
 </html>

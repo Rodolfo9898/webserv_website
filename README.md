@@ -4,15 +4,30 @@
 
 ## Description
 
-The website of the webserv project: the pages the default configuration of the server serves, the error pages, the HTML
-fragments the CGI scripts print around their result, and the folder where the uploads land. It is a git submodule of
-`webserv`, at `eval_helper/website/`, and this repository is that folder: what is at its root is what the server sees.
+The website of the webserv project: a showcase that is **served by the server it presents**. Every page, request,
+upload and error you see on it is real. It is a git submodule of `webserv` (`eval_helper/website/`), and this
+repository is that folder: what is at its root is what the server sees.
 
-| Folder | What it is |
-|---|---|
-| `site/` | The pages (`index.html`, `pages/`), the error pages (`errors/`), the fragments of the CGI scripts (`cgi/`), the images and the file `siege/siegeFile` |
-| `site/indexBonus.html`, `site/bonus/` | The bonus: the home page with one more button (`Go to the Bonus Page`), the page `/bonus` that links the examples of sessions and cookies (their scripts are in `cgi/bonus/` of `webserv`) and a cookie clicker whose score is kept in the session of the server. Only `config/bonus/*.conf` serve them; the mandatory configuration serves `index.html` |
-| `uploads/` | Where the server saves the files it receives. Only the `.placeholder` is in git: the folder has to exist for the configuration to be accepted, and what is uploaded is ignored (`.gitignore`) |
+Plain HTML, CSS and JavaScript. No framework, no build step, no package to install, no external font or CDN.
+Every file is under 250 lines.
+
+What it shows, page by page (route in the configuration, or file under `site/` for pages without a route):
+
+| Page | Address | Feature of webserv it demonstrates |
+|---|---|---|
+| Home | `/` (`indexBonus.html` with a bonus config) | Static site, default file, live terminal with real responses |
+| Read | `/pages/get.html` | GET, headers, redirects, directory listing, binary bodies |
+| Create | `/post`, `/succesPost` | POST multipart uploads, progress, body-size limit |
+| Delete | `/delete` | DELETE on `/uploads`, idempotency experiment |
+| CRUD manager | `/pages/crud.html` | The whole REST cycle on the `/uploads` resource |
+| CGI | `/cgi`, `/cgiPython`, `/cgiPerl` | CGI by extension, environment, stdin/stdout pipes |
+| How it works | `/pages/how.html` | poll() loop, request lifecycle, annotated config |
+| Route explorer | `/pages/routes.html` | Every route of the config, with a live "Try it" |
+| Error lab | `/pages/errors.html` | The five configured error pages live, plus a gallery of all 40 error pages |
+| Servers | `/pages/servers.html`, `indexServer2/3.html` | Several servers and ports in one process |
+| Stress test | `/pages/stress.html` | Stability under load, throughput and latency charts |
+| Cookies | `/cookie-clicker` | Cookies stored by the browser |
+| Bonus | `/bonus`, `/bonus/cookie-clicker.html` | Sessions, cookies, Perl/Python/shell CGI (bonus configs only) |
 
 ## Instructions
 
@@ -25,20 +40,99 @@ configuration expects it:
 git clone https://github.com/Rodolfo9898/webserv_website.git eval_helper/website
 ```
 
-The server is started from the folder of `webserv`, and the configuration files (`config/*.conf`) say `entry ./eval_helper/website`
-for every route: that is the only place that has to change if the website moves.
+Start the server from the folder of `webserv` and open `http://localhost:4442`:
 
-### Moving a file
+```sh
+./webserv config/defaultConfig.conf                      # mandatory part
+./webserv_bonus config/bonus/defaultConfig.conf          # bonus: sessions, cookies, more CGI
+./webserv config/multiServerConfig.conf                  # ports 4444 and 4445 (see /pages/servers.html)
+```
+
+The configuration files say `entry ./eval_helper/website` for every route: that is the only place that has to change if
+the website moves. The site adapts to the config it runs under: bonus links appear only when `/bonus` answers.
+
+### What the server must provide
+
+The site only needs standard behaviour, but three things are worth knowing:
+
+- `.css`, `.js`, `.png` and `.ico` files must be served with their usual `Content-Type`; browsers refuse a stylesheet
+  labelled `text/plain`. If the pages show up unstyled, check the content types first.
+- Directory listing markup: links inside `.styled-list`, with hrefs that resolve to the file (`js/net/listing.js` is the only
+  place that reads it).
+- No external requests: fonts are the system stack, icons are inline SVG, backgrounds are CSS and canvas.
+
+### Layout of the code
+
+| Folder | Content |
+|---|---|
+| `site/*.html`, `site/pages/`, `site/bonus/` | One small HTML file per page: head, `<main>` skeleton, one `<script>` |
+| `site/errors/` | One page per HTTP error status, 40 in all (29 client, 11 server): `error400.html` ... `error511.html`, generated from the catalog in `js/data/errors4.js` and `errors5.js` |
+| `site/cgi/` | Fragments printed around the output of the CGI scripts (`cgi*Begin*.html` and `cgi*End*.html`) |
+| `site/css/` | `main.css` imports tokens, base, shell, components, and one stylesheet per page family |
+| `site/js/boot.js` | The loader: reads `data-page` and loads the core, the shell and that page's modules, in order |
+| `site/js/core/` | Namespace and event bus, DOM factory, icons, theme |
+| `site/js/net/` | HTTP client with middleware, status strategies, feature detection, listing adapter, uploads repository |
+| `site/js/ui/` | Layout shell, background canvas, inspector, traffic tap, dropzone, upload queue, file table, charts |
+| `site/js/pages/` | One controller per page (and its view builders) |
+| `site/js/data/` | `config.js` is a hand-kept mirror of the `.conf` files, `nav.js` is the site map |
+| `uploads/` | Where the server saves what it receives. Only the `.placeholder` is in git (`.gitignore`) |
+
+### Design patterns, and where they live
+
+| Pattern | Where |
+|---|---|
+| Module / namespace | `core/kernel.js` (`WS.ns`), every file is an IIFE that registers itself |
+| Observer (publish/subscribe) | `WS.bus`: `http:exchange` feeds the traffic tap and inspectors, `uploads:changed` refreshes the lists |
+| Facade | `net/http.js` hides fetch and XHR behind `get/post/del/upload` |
+| Chain of responsibility | HTTP middleware: recorder, error mapper, timing, timeout |
+| Repository | `net/uploads-repo.js`: the uploads as a REST resource (list, read, create, remove, replace) |
+| Adapter | `net/listing.js` turns the server's HTML listing into entities |
+| Saga with compensation | `replace()` in the repository: the old bytes are put back if the new upload fails |
+| Strategy | status descriptions, body viewers, route filters, clicker storage (cookie vs session) |
+| Factory | `WS.dom.el()` builds every node; text is never injected as HTML |
+| Singleton | theme, toast host, traffic tap |
+| State machine | upload jobs: queued, uploading, done or failed, deleted |
+| Worker pool | `pages/stress.js` |
+| Template functions over data | `home-view.js`, `nav.js`, `config.js` |
+
+### REST and CRUD
+
+The `/uploads` route is the resource: `GET /uploads` is the collection, `GET /uploads/<name>` an item, `POST /succesPost`
+creates one, `DELETE /uploads/<name>` removes one. The configuration enables only GET, POST and DELETE, so the UI
+composes an update ("replace") from DELETE and POST, with a rollback. Adding `PUT` to a route's `method` list would make
+a real update possible.
+
+### Error pages
+
+The configs select five of them (`errors` lines for 400, 404, 405, 413 and, for 500, 502 and 504 together, 500). The
+others are ready to use: every page shows, at the bottom, the exact line that makes the server send it, for example
+
+```
+errors /site/errors/error403.html [403] ;
+errors /site/errors/error502.html [502] ;
+```
+
+Add it to a Server block to switch a page on (the `% n ;` line before the `errors` lines looks like a count in the
+existing configs, so keep it in step). To change a text, edit its catalog entry and the matching static page: the HTML
+file only repeats the title and the lead for browsers without JavaScript.
+
+### Keeping it in sync
 
 Paths are written in the code, so a file moved here has to be changed there too:
 
-- the `entry`, `defPage` and `errors` lines of `config/*.conf` name folders and files of `site/` (`./eval_helper/website/site`,
-  `/index.html`, `/site/errors/error400.html` ...): the server itself reads nothing by name;
-- the pages link to each other by the names of the routes of the configuration (`/get`, `/post`, `/delete`, `/cgi` ...), and
-  `pages/delete.html` lists and deletes through the route `/uploads`;
-- the CGI scripts of `cgi/` read `site/cgi/cgi*{Begin,End}*.html`;
-- the pages of `site/bonus/` call the scripts of `cgi/bonus/` by the address of the route `/cgi-bin` (`/cgi-bin/bonus/session.py`) and use the image `/Cookie.png`.
+- the `entry`, `defPage` and `errors` lines of `config/*.conf` name folders and files of `site/`: the server itself reads
+  nothing by name;
+- `js/data/config.js` copies what the `.conf` files declare (routes, ports, limits). Change a config, change that copy;
+- the CGI scripts read `site/cgi/cgi*{Begin,End}*.html`: keep these file names, and keep the pairs balanced (the begin
+  fragment opens `<main>` and a card, the end fragment closes them);
+- the upload form posts the field `binary` to `/succesPost`, the CGI upload form posts `uploadedfile` to `/cgi-bin/post.py`;
+- the session clicker uses `/cgi-bin/bonus/clicker.py` (GET returns `{session, score}`, POST `click=1` or `reset=1`).
 
 ## Resources
 
 - Git submodules - https://git-scm.com/book/en/v2/Git-Tools-Submodules
+- HTTP semantics (methods, status codes) - https://www.rfc-editor.org/rfc/rfc9110
+- CGI, the Common Gateway Interface - https://www.rfc-editor.org/rfc/rfc3875
+- MDN: Fetch, XMLHttpRequest upload progress, CSS `@property`, `<dialog>`
+- AI use: the redesign of this website (structure, styling, scripts) was produced with Claude Code, then checked with
+  unit tests of the logic modules and a static check of links, modules and file sizes. See the commit history.

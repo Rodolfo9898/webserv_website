@@ -1,72 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="no-js">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>GET Request Demo</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #4a113d;
-			background-size: cover;
-			color: #ffffff;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			overflow: hidden;
-		}
-
-		.container {
-			text-align: center;
-			background: rgba(0, 0, 0, 0.7);
-			padding: 30px;
-			border-radius: 10px;
-			box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-		}
-
-		h1 {
-			font-size: 3em;
-			margin-bottom: 20px;
-		}
-
-		form {
-			margin-bottom: 20px;
-		}
-
-		input[type="file"],
-		input[type="submit"] {
-			padding: 10px;
-			font-size: 1em;
-			margin: 10px;
-		}
-
-		button {
-			font-size: 1em;
-			padding: 10px 20px;
-			color: #fff;
-			background-color: #007bff;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			margin-top: 20px;
-			transition: background-color 0.3s ease;
-		}
-
-		button:hover {
-			background-color: #0056b3;
-		}
-	</style>
+	<meta name="color-scheme" content="dark light">
+	<title>Read · GET · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="get" defer></script>
 </head>
 
-<body>
-	<div class="container">
-		<h1>GET request DEMO</h1>
-		<button onclick="window.location.href = '/';">Go Back Home</button>
-	</div>
+<body data-nav="get">
+	<main class="page">
+		<header class="page-head" data-reveal>
+			<span class="eyebrow"><i data-icon="eye"></i> Read · GET</span>
+			<h1>Ask for anything, <span class="grad-text">see everything.</span></h1>
+			<p class="lead">GET reads a resource without changing it. Send one to any address of this server and the inspector shows the status, the timing, every header and the body.</p>
+		</header>
+
+		<section class="card pad-lg" data-reveal>
+			<div class="lab-bar">
+				<span class="method get">GET</span>
+				<input class="input mono" id="path" value="/" spellcheck="false" autocomplete="off" aria-label="Path to request">
+				<button class="btn primary" id="send"><i data-icon="send"></i> Send</button>
+			</div>
+			<div class="presets" id="presets"></div>
+			<div id="out"></div>
+		</section>
+
+		<section class="section">
+			<div class="sec-head" data-reveal><h2>Anatomy of a read</h2></div>
+			<div class="anatomy">
+				<article class="card" data-reveal>
+					<div class="ico-lg"><i data-icon="code"></i></div>
+					<h3>Request line</h3>
+					<p><code>GET /uploads HTTP/1.1</code>: the method, the path the router matches against the route list, and the protocol version.</p>
+				</article>
+				<article class="card" data-reveal>
+					<div class="ico-lg"><i data-icon="list"></i></div>
+					<h3>Headers</h3>
+					<p>Metadata both ways: <code>Host</code> and <code>Accept</code> from the browser, <code>Content-Type</code> and <code>Content-Length</code> from the server.</p>
+				</article>
+				<article class="card" data-reveal>
+					<div class="ico-lg"><i data-icon="shield"></i></div>
+					<h3>Safe and idempotent</h3>
+					<p>A GET must not change anything on the server, so it can be repeated, retried or prefetched without harm.</p>
+				</article>
+			</div>
+		</section>
+	</main>
 </body>
 
 </html>

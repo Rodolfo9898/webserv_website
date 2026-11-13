@@ -1,86 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="no-js">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Success</title>
-	<style>
-		/* Reset some basic styles */
-		body,
-		h1,
-		p {
-			margin: 0;
-			padding: 0;
-			font-family: Arial, sans-serif;
-		}
-
-		/* Basic page styling */
-		body {
-			background-color: #0e3615;
-			/* Light green background */
-			color: #2c3e50;
-			/* Dark blue-grey text */
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-		}
-
-		.container {
-			text-align: center;
-		}
-
-		.success-content {
-			background: #ffffff;
-			/* White background for the success box */
-			padding: 2em 3em;
-			border-radius: 10px;
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		}
-
-		h1 {
-			font-size: 4em;
-			color: #27ae60;
-			/* Success green color */
-			margin-bottom: 0.5em;
-		}
-
-		p {
-			font-size: 1.2em;
-			color: #7f8c8d;
-			/* Light grey text for the message */
-			margin-bottom: 1.5em;
-		}
-
-		a.back-home {
-			display: inline-block;
-			padding: 0.75em 1.5em;
-			background-color: #3498db;
-			/* Blue button */
-			color: white;
-			text-decoration: none;
-			border-radius: 5px;
-			font-weight: bold;
-			transition: background-color 0.3s ease;
-		}
-
-		a.back-home:hover {
-			background-color: #2980b9;
-			/* Darker blue on hover */
-		}
-	</style>
+	<meta name="color-scheme" content="dark light">
+	<title>Upload received · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="success" defer></script>
 </head>
 
-<body>
-	<div class="container">
-		<div class="success-content">
-			<h1>Success!</h1>
-			<p>Your Post has been succesfully recieved in the specified upload folder.</p>
-
-			<a href="/" class="back-home">Go Back Home</a>
-		</div>
-	</div>
+<!-- Served by route /succesPost: the answer to the upload form (also what a plain, no-JavaScript POST gets). -->
+<body data-nav="post">
+	<main class="page narrow">
+		<canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+		<section class="success">
+			<svg class="check" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="34"/><path d="M25 41l10 10 20-22"/></svg>
+			<h1>Upload received</h1>
+			<p class="lead">Your file was saved in the upload folder of the server.</p>
+			<div class="err-actions">
+				<a class="btn primary" href="/post"><i data-icon="upload"></i> Upload another</a>
+				<a class="btn" href="/pages/crud.html"><i data-icon="layers"></i> Manage files</a>
+				<a class="btn ghost" href="/"><i data-icon="home"></i> Home</a>
+			</div>
+		</section>
+		<section class="section">
+			<div class="sec-head"><h2>Latest files</h2><p>Read straight from <code>GET /uploads</code>.</p></div>
+			<div class="card pad-sm" id="latest"></div>
+		</section>
+	</main>
 </body>
 
 </html>

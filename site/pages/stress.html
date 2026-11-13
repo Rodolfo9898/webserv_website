@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="color-scheme" content="dark light">
+	<title>Stress test · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="stress" defer></script>
+</head>
+
+<body data-nav="stress" data-tap="off">
+	<main class="page">
+		<header class="page-head" data-reveal>
+			<span class="eyebrow"><i data-icon="zap"></i> Stability</span>
+			<h1>Throw requests at it. <span class="grad-text">It stays up.</span></h1>
+			<p class="lead">The subject demands a server that never crashes and never hangs. Fire a burst of requests from your browser at the <code>/siege</code> route and watch throughput, latency and status codes live.</p>
+		</header>
+
+		<section class="card pad-lg" data-reveal id="panel">
+			<div class="stress-controls">
+				<label class="field"><span>Target</span>
+					<select class="select" id="target">
+						<option value="/siege">/siege (empty file)</option>
+						<option value="/">/ (home page)</option>
+						<option value="/css/main.css">/css/main.css</option>
+						<option value="/does-not-exist">/does-not-exist (404 path)</option>
+					</select></label>
+				<label class="field"><span>Parallel requests <b class="range-val" id="c-val">12</b></span>
+					<input type="range" id="conc" min="1" max="50" value="12"></label>
+				<label class="field"><span>Total requests</span>
+					<select class="select" id="total"><option>100</option><option selected>500</option><option>1000</option><option>2000</option></select></label>
+				<button class="btn primary lg" id="go"><i data-icon="play"></i> <span>Start</span></button>
+			</div>
+
+			<div class="stat-row" id="stats"></div>
+			<div class="codes" id="codes" aria-live="polite"></div>
+		</section>
+
+		<div class="charts mt" id="charts"></div>
+
+		<section class="section">
+			<div class="grid c2">
+				<div class="callout warn" data-reveal><i data-icon="alert"></i><p>A browser opens only about six connections per server at a time, so the effective parallelism here is lower than the slider. It is a friendly smoke test, not a benchmark.</p></div>
+				<div class="stack" data-reveal>
+					<small class="mute">For a real load test, point siege at the route made for it:</small>
+					<pre class="code-block">siege -b -c25 -t10S http://localhost:4442/siege</pre>
+				</div>
+			</div>
+		</section>
+	</main>
+</body>
+
+</html>

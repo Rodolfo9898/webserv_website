@@ -1,114 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="no-js">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>DELETE Request Demo</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			margin: 0;
-			padding: 0;
-			background-color: #4a113d;
-			background-size: cover;
-			color: #ffffff;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100vh;
-			overflow: hidden;
-		}
-
-		.container {
-			text-align: center;
-			background: rgba(0, 0, 0, 0.7);
-			padding: 30px;
-			border-radius: 10px;
-			box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-		}
-
-		h1 {
-			font-size: 3em;
-			margin-bottom: 20px;
-		}
-
-		form {
-			margin-bottom: 20px;
-		}
-
-		p {
-			min-height: 1.2em;
-		}
-
-		select,
-		input[type="submit"] {
-			padding: 10px;
-			font-size: 1em;
-			margin: 10px;
-		}
-
-		button {
-			font-size: 1em;
-			padding: 10px 20px;
-			color: #fff;
-			background-color: #007bff;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			margin-top: 20px;
-			transition: background-color 0.3s ease;
-		}
-
-		button:hover {
-			background-color: #0056b3;
-		}
-	</style>
+	<meta name="color-scheme" content="dark light">
+	<title>Delete · DELETE · webserv</title>
+	<link rel="icon" href="/favicon.ico">
+	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
+	<link rel="stylesheet" href="/css/main.css">
+	<script src="/js/boot.js" data-page="delete" defer></script>
 </head>
 
-<body>
-	<div class="container">
-		<h1>Delete a File</h1>
-		<form id="deleteForm">
-			<select id="files" name="filename" required></select>
-			<input type="submit" value="Delete">
-		</form>
-		<p id="message"></p>
-		<button onclick="window.location.href = '/';">Go Back Home</button>
-	</div>
-	<script>
-		const select = document.getElementById('files');
-		const message = document.getElementById('message');
+<body data-nav="delete">
+	<main class="page">
+		<header class="page-head" data-reveal>
+			<span class="eyebrow"><i data-icon="trash"></i> Delete · DELETE</span>
+			<h1>Remove a file, <span class="grad-text">for real.</span></h1>
+			<p class="lead">Each file is an item of <code>/uploads</code>. Sending <code>DELETE</code> to its address removes it from the server's upload folder. Only routes that list DELETE in their methods accept it.</p>
+		</header>
 
-		/* The files of the uploads folder are the links of its listing. */
-		async function refresh() {
-			const response = await fetch('/uploads');
-			const page = new DOMParser().parseFromString(await response.text(), 'text/html');
+		<div class="crud-grid">
+			<section class="card pad-lg" data-reveal>
+				<h3><span class="method delete">DELETE</span> Pick files</h3>
+				<p class="sub">Tick one or more files. They are deleted one request each.</p>
+				<div class="pick-bar">
+					<label class="row"><input type="checkbox" id="all"> Select all</label>
+					<button class="btn danger" id="go" disabled><i data-icon="trash"></i> Delete selected</button>
+				</div>
+				<div class="pick-list" id="list"></div>
+			</section>
 
-			select.innerHTML = '';
-			page.querySelectorAll('.styled-list a').forEach(function (link) {
-				const href = link.getAttribute('href');
+			<section class="card pad-lg" data-reveal>
+				<h3>Idempotency test</h3>
+				<p class="sub">DELETE is idempotent: the end state is the same however many times you ask. Run it twice on the first ticked file and compare the answers.</p>
+				<button class="btn" id="twice" disabled><i data-icon="swap"></i> Delete it twice</button>
+				<div class="idem" id="idem" hidden>
+					<div class="step-box" id="s1"></div>
+					<div class="arrow"><i data-icon="arrow"></i></div>
+					<div class="step-box" id="s2"></div>
+				</div>
+				<p class="mt" id="idem-note" hidden></p>
+				<div class="callout mt"><i data-icon="info"></i><p>The first request removes the file. The second finds nothing: a well-behaved server answers <strong>404</strong> and the resource is still gone, so nothing got worse.</p></div>
+			</section>
+		</div>
 
-				if (href.endsWith('/') || link.textContent === '..')
-					return;
-				const option = document.createElement('option');
-				option.value = href;
-				option.textContent = link.textContent;
-				select.appendChild(option);
-			});
-		}
-
-		document.getElementById('deleteForm').addEventListener('submit', async function (event) {
-			event.preventDefault();
-			const name = select.selectedOptions[0].textContent;
-			const response = await fetch(select.value, { method: 'DELETE' });
-
-			message.textContent = response.ok ? 'Deleted ' + name : 'Could not delete ' + name + ' (' + response.status + ')';
-			refresh();
-		});
-
-		refresh();
-	</script>
+		<section class="section">
+			<div class="sec-head" data-reveal><h2>Last exchange</h2><p>The most recent answer from the server.</p></div>
+			<div id="last"></div>
+		</section>
+	</main>
 </body>
 
 </html>
