@@ -65,11 +65,11 @@
 <body>
 	<div class="container">
 		<h1>Execute a Python CGI Script</h1>
-		<form action="/cgi-bin/query.py" method="GET">
+		<form action="/cgi-bin/get.py" method="GET">
 			<input type="text" name="name" placeholder="Enter some data" required>
 			<input type="submit" value="Execute Get CGI Script">
 		</form>
-		<form id="uploadForm" enctype="multipart/form-data" action="/cgi-bin/upload_image.py" method="POST">
+		<form id="uploadForm" enctype="multipart/form-data" action="/cgi-bin/post.py" method="POST">
 			<input type="file" id="fileInput" accept="image/*" name="uploadedfile" required>
 			<input type="submit" value="Execute Post CGI Script">
 		</form>

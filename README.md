@@ -10,7 +10,8 @@ fragments the CGI scripts print around their result, and the folder where the up
 
 | Folder | What it is |
 |---|---|
-| `site/` | The pages (`index.html`, `pages/`), the error pages (`errors/`), the templates of the directory listing (`directoryListing/`) and of the delete page (`delete/`), the fragments of the CGI scripts (`cgi/`), the images and the file `siege/siegeFile` |
+| `site/` | The pages (`index.html`, `pages/`), the error pages (`errors/`), the fragments of the CGI scripts (`cgi/`), the images and the file `siege/siegeFile` |
+| `site/indexBonus.html`, `site/bonus/` | The bonus: the home page with one more button (`Go to the Bonus Page`), the page `/bonus` that links the examples of sessions and cookies (their scripts are in `cgi/bonus/` of `webserv`) and a cookie clicker whose score is kept in the session of the server. Only `config/bonus/*.conf` serve them; the mandatory configuration serves `index.html` |
 | `uploads/` | Where the server saves the files it receives. Only the `.placeholder` is in git: the folder has to exist for the configuration to be accepted, and what is uploaded is ignored (`.gitignore`) |
 
 ## Instructions
@@ -31,10 +32,12 @@ for every route: that is the only place that has to change if the website moves.
 
 Paths are written in the code, so a file moved here has to be changed there too:
 
-- the `defPage` and `errors` lines of `config/*.conf` name files of `site/` (`/site/index.html`, `/site/errors/error400.html` ...);
-- the server itself reads `site/errors/error404.html` and `error413.html`, `site/directoryListing/directory{Begin,End}.html` and
-  `site/delete/delete{Begin,End}.html` (`include/core/keys.hpp`);
-- the CGI scripts of `cgi/` read `site/cgi/cgi*{Begin,End}*.html`.
+- the `entry`, `defPage` and `errors` lines of `config/*.conf` name folders and files of `site/` (`./eval_helper/website/site`,
+  `/index.html`, `/site/errors/error400.html` ...): the server itself reads nothing by name;
+- the pages link to each other by the names of the routes of the configuration (`/get`, `/post`, `/delete`, `/cgi` ...), and
+  `pages/delete.html` lists and deletes through the route `/uploads`;
+- the CGI scripts of `cgi/` read `site/cgi/cgi*{Begin,End}*.html`;
+- the pages of `site/bonus/` call the scripts of `cgi/bonus/` by the address of the route `/cgi-bin` (`/cgi-bin/bonus/session.py`) and use the image `/Cookie.png`.
 
 ## Resources
 

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Bonus</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 20px;
+			box-sizing: border-box;
+			background-color: #4a113d;
+			color: #ffffff;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+		}
+
+		.container {
+			text-align: center;
+			background: rgba(0, 0, 0, 0.7);
+			padding: 30px;
+			border-radius: 10px;
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+			max-width: 760px;
+		}
+
+		h1 {
+			font-size: 3em;
+			margin: 0 0 20px;
+		}
+
+		.example {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 20px;
+			text-align: left;
+			padding: 12px 0;
+			border-bottom: 1px solid #7a3a6b;
+		}
+
+		.example p {
+			margin: 0;
+			font-size: 1.1em;
+		}
+
+		a.button {
+			display: inline-block;
+			font-size: 1em;
+			padding: 10px 20px;
+			color: #fff;
+			background-color: #007bff;
+			border-radius: 5px;
+			text-decoration: none;
+			white-space: nowrap;
+			transition: background-color 0.3s ease;
+		}
+
+		a.button:hover {
+			background-color: #0056b3;
+		}
+
+		.home {
+			margin-top: 25px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Bonus</h1>
+		<div class="example">
+			<p>A session kept by the server, shown by a Python script.</p>
+			<a class="button" href="/cgi-bin/bonus/session.py">Session in Python</a>
+		</div>
+		<div class="example">
+			<p>The same session, shown by a Perl script: it belongs to the server, not to the language.</p>
+			<a class="button" href="/cgi-bin/bonus/session.pl">Session in Perl</a>
+		</div>
+		<div class="example">
+			<p>The cookies your browser sends, and a form to set and delete them.</p>
+			<a class="button" href="/cgi-bin/bonus/cookies.py">Cookies</a>
+		</div>
+		<div class="example">
+			<p>A page made by a shell script, the third kind of CGI.</p>
+			<a class="button" href="/cgi-bin/bonus/hello.sh">Shell script</a>
+		</div>
+		<div class="example">
+			<p>A cookie clicker whose score lives in your session, so it survives a reload.</p>
+			<a class="button" href="/bonus/cookie-clicker.html">Cookie clicker</a>
+		</div>
+		<a class="button home" href="/">Go Back Home</a>
+	</div>
+</body>
+
+</html>

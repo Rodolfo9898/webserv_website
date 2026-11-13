@@ -37,6 +37,10 @@
 			margin-bottom: 20px;
 		}
 
+		p {
+			min-height: 1.2em;
+		}
+
 		select,
 		input[type="submit"] {
 			padding: 10px;
@@ -65,14 +69,46 @@
 <body>
 	<div class="container">
 		<h1>Delete a File</h1>
-		<form action="/delete-file" method="DELETE">
-			<select name="filename" required>
-				<!-- Dynamically populate with server-side code -->
-			</select>
+		<form id="deleteForm">
+			<select id="files" name="filename" required></select>
 			<input type="submit" value="Delete">
 		</form>
+		<p id="message"></p>
 		<button onclick="window.location.href = '/';">Go Back Home</button>
 	</div>
+	<script>
+		const select = document.getElementById('files');
+		const message = document.getElementById('message');
+
+		/* The files of the uploads folder are the links of its listing. */
+		async function refresh() {
+			const response = await fetch('/uploads');
+			const page = new DOMParser().parseFromString(await response.text(), 'text/html');
+
+			select.innerHTML = '';
+			page.querySelectorAll('.styled-list a').forEach(function (link) {
+				const href = link.getAttribute('href');
+
+				if (href.endsWith('/') || link.textContent === '..')
+					return;
+				const option = document.createElement('option');
+				option.value = href;
+				option.textContent = link.textContent;
+				select.appendChild(option);
+			});
+		}
+
+		document.getElementById('deleteForm').addEventListener('submit', async function (event) {
+			event.preventDefault();
+			const name = select.selectedOptions[0].textContent;
+			const response = await fetch(select.value, { method: 'DELETE' });
+
+			message.textContent = response.ok ? 'Deleted ' + name : 'Could not delete ' + name + ' (' + response.status + ')';
+			refresh();
+		});
+
+		refresh();
+	</script>
 </body>
 
 </html>
