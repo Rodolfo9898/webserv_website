@@ -1,7 +1,8 @@
 /*
- * errors-lab.js - one card per configured error page: a scaled live preview of the real page, a "Trigger" button for
+ * errors-lab.js - one card per configured error page: a link to the real page, a "Trigger" button for
  * the errors a browser can cause (404 and 405), and a copyable command for the ones it cannot (400, 413, 5xx).
- * A request the browser cannot produce is not faked: the card says how to produce it.
+ * A request the browser cannot produce is not faked: the card says how to produce it. Below the cards, a filterable
+ * gallery links to every page of the error catalog.
  */
 (function () {
   'use strict';
@@ -44,15 +45,17 @@
     }
     var file = '/errors/error' + c.code + '.html';
     $('#grid').appendChild(el('article', { class: 'card lab-card', style: { '--ec': c.color }, 'data-reveal': true },
-      el('div', { class: 'preview' }, el('iframe', { src: file, loading: 'lazy', title: c.code + ' page preview', tabindex: '-1' })),
-      el('div', { class: 'body' },
-        el('div', { class: 'head' }, el('span', { class: 'code', text: c.code }), el('a', { class: 'btn sm ghost', href: file, target: '_blank', rel: 'noopener' }, WS.icon('external'), 'Open page')),
-        el('strong', { text: c.name }), el('p', { text: c.text }), action)));
+      el('div', { class: 'band' }, el('a', { class: 'code', href: file, text: c.code, 'aria-label': 'Open the ' + c.code + ' page' }), el('a', { class: 'btn sm ghost', href: file }, WS.icon('arrow'), 'Open page')),
+      el('div', { class: 'body' }, el('strong', { text: c.name }), el('p', { text: c.text }), action)));
   });
 
-  /* ---- Gallery: every page of the catalog, filterable, previewed in a dialog ---- */
+  /* The grid has room for a sixth card: point at the rest of the catalog. */
+  $('#grid').appendChild(el('a', { class: 'card lab-card more-card', href: '#all-pages', 'data-reveal': true },
+    el('div', { class: 'band' }, el('span', { class: 'code', text: '+' + (WS.data.errorCatalog.length - CARDS.length) }), WS.icon('arrow')),
+    el('div', { class: 'body' }, el('strong', { text: 'Every other error page' }), el('p', { text: 'From 401 Unauthorized to 511 Network Authentication Required, plus the teapot. One page for each status, with the config line to switch it on.' }), el('span', { class: 'more' }, 'Browse the gallery', WS.icon('arrow')))));
+
+  /* ---- Gallery: every page of the catalog, filterable. A tile is a plain link: it goes straight to the page. ---- */
   var CATALOG = WS.data.errorCatalog.slice().sort(function (a, b) { return a.code - b.code; });
-  var dialog = $('#preview');
   var galFilter = 'all';
   var galQuery = '';
   var GAL = {
@@ -63,22 +66,13 @@
   };
   function inUse(e) { return WS.data.errors.some(function (c) { return c.file === '/site/errors/error' + e.code + '.html'; }); }
 
-  function preview(e) {
-    var file = '/errors/error' + e.code + '.html';
-    WS.dom.clear(dialog);
-    dialog.appendChild(el('header', null, el('span', { text: e.code + ' ' + e.name }),
-      el('div', { class: 'row' }, el('a', { class: 'btn sm', href: file, target: '_blank', rel: 'noopener' }, WS.icon('external'), 'Open'), el('button', { class: 'btn sm ghost', onclick: function () { dialog.close ? dialog.close() : dialog.removeAttribute('open'); } }, WS.icon('x'), 'Close'))));
-    dialog.appendChild(el('iframe', { src: file, title: e.code + ' ' + e.name }));
-    if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', '');
-  }
-
   function paintGallery() {
     var box = $('#gallery');
     WS.dom.clear(box);
     CATALOG.filter(function (e) {
       return GAL[galFilter][1](e) && (!galQuery || (e.code + ' ' + e.name).toLowerCase().indexOf(galQuery) >= 0);
     }).forEach(function (e) {
-      box.appendChild(el('button', { class: 'tile', style: { '--ec': e.color }, onclick: function () { preview(e); } },
+      box.appendChild(el('a', { class: 'tile', href: '/errors/error' + e.code + '.html', style: { '--ec': e.color } },
         el('b', { text: e.code }), el('span', { text: e.name }), el('small', { class: 'mute', text: e.kind === 'client' ? 'client error' : 'server error' }),
         inUse(e) ? el('span', { class: 'chip on' }, WS.icon('check'), 'in use') : null));
     });

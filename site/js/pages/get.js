@@ -5,7 +5,7 @@
   var $ = WS.dom.$;
   var PRESETS = [
     ['/', 'default file'], ['/uploads', 'listing'], ['/get/css/', 'autoindex'], ['/old-home', '301 redirect'],
-    ['/siege', 'empty file'], ['/Cookie.png', 'binary image'], ['/cgi-bin/get.py?name=webserv', 'CGI'], ['/does-not-exist', '404']
+    ['/siege', 'empty file'], ['/favicon.ico', 'binary image'], ['/cgi-bin/get.py?name=webserv', 'CGI'], ['/does-not-exist', '404']
   ];
   var input = $('#path');
   var out = WS.ui.inspector.mount($('#out'), 'Pick a preset or type a path, then press Send.');

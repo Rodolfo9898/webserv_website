@@ -1,5 +1,5 @@
 /*
- * cgi-forms.js - shared by /cgiPython and /cgiPerl. Every <form data-cgi> works as a normal form (the browser
+ * cgi-forms.js - the two Python forms of /cgi. Every <form data-cgi> works as a normal form (the browser
  * navigates to the script's page). With "Inspect here" ticked, or when a file name has spaces that the server
  * would not accept, the request is sent with fetch instead, so the raw answer can be inspected in place.
  */

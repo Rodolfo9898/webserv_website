@@ -1,44 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="color-scheme" content="dark light">
-	<title>Session clicker · webserv</title>
+	<meta http-equiv="refresh" content="0; url=/cookie-clicker">
+	<title>Moved · webserv</title>
 	<link rel="icon" href="/favicon.ico">
-	<script>try{document.documentElement.dataset.theme=JSON.parse(localStorage.getItem('ws.theme'))||'dark'}catch(e){document.documentElement.dataset.theme='dark'}</script>
-	<link rel="stylesheet" href="/css/main.css">
-	<script src="/js/boot.js" data-page="sessionclicker" defer></script>
 </head>
 
-<!-- Served at /bonus/cookie-clicker.html by the bonus configs: the score lives in a server-side session. -->
-<body data-nav="session-clicker" data-edition="bonus">
-	<main class="page">
-		<header class="page-head" data-reveal>
-			<span class="eyebrow"><i data-icon="gift"></i> Bonus · sessions</span>
-			<h1>Your score lives <span class="grad-text">on the server.</span></h1>
-			<p class="lead">The browser only holds a session id in a cookie. The score itself is kept by the server in that session, so it survives reloads, and a CGI script reads and updates it on every click.</p>
-		</header>
-
-		<div class="play-grid">
-			<section class="card pad-lg" data-reveal><div id="game"></div></section>
-			<section class="card pad-lg" data-reveal>
-				<h3>What the browser holds</h3>
-				<p class="sub dim mt">A session id, not the score. A cookie marked HttpOnly would not even show up here.</p>
-				<div id="jar" class="mt"></div>
-			</section>
-		</div>
-
-		<section class="section">
-			<div class="sec-head" data-reveal><h2>Last request to the session script</h2><p><code>POST /cgi-bin/bonus/clicker.py</code> with <code>click=1</code> or <code>reset=1</code>; <code>GET</code> reads the score.</p></div>
-			<div id="last"></div>
-		</section>
-
-		<div class="row mt-lg">
-			<a class="btn" href="/bonus"><i data-icon="back"></i> Bonus hub</a>
-			<a class="btn ghost" href="/cookie-clicker">Cookie-only version</a>
-		</div>
-	</main>
+<!-- The session clicker and the cookie clicker are one page now. Kept so old links still land somewhere. -->
+<body>
+	<p>The clicker moved: <a href="/cookie-clicker">/cookie-clicker</a></p>
 </body>
 
 </html>

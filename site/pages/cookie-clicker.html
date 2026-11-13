@@ -11,26 +11,37 @@
 	<script src="/js/boot.js" data-page="clicker" defer></script>
 </head>
 
+<!-- Route /cookie-clicker (both configs). The bonus build keeps the score in a server session; otherwise a cookie holds it. -->
 <body data-nav="cookie">
 	<main class="page">
 		<header class="page-head" data-reveal>
-			<span class="eyebrow"><i data-icon="cookie"></i> Cookies</span>
+			<span class="eyebrow"><i data-icon="cookie"></i> Cookies &amp; sessions</span>
 			<h1>A game that <span class="grad-text">remembers you.</span></h1>
-			<p class="lead">HTTP forgets everything between requests. Cookies are how a server (or a page) gets a memory: the browser stores them and sends them back on every request.</p>
+			<p class="lead">HTTP forgets everything between two requests. A cookie lets the browser carry a little state around; a session keeps the real data on the server and hands the browser only an id. This clicker uses a server session when the server has one, and a plain cookie when it does not.</p>
 		</header>
 
 		<div class="play-grid">
 			<section class="card pad-lg" data-reveal><div id="game"></div></section>
 			<section class="card pad-lg" data-reveal>
 				<h3>The cookie jar</h3>
-				<p class="sub dim mt">Your score is one of these. Add or delete cookies and watch the header change.</p>
+				<p class="dim mt">What the browser stores for this host, and sends back as the <code>Cookie</code> header of every request. Add or delete one and watch the header change.</p>
 				<div id="jar" class="mt"></div>
+				<ol class="how-list mt">
+					<li><b>1.</b> The first response carries <code>Set-Cookie</code> with a session id.</li>
+					<li><b>2.</b> The browser sends it back on every request.</li>
+					<li><b>3.</b> The server finds your session by that id: the score never leaves the server.</li>
+				</ol>
 			</section>
 		</div>
 
+		<section class="section">
+			<div class="sec-head" data-reveal><h2>Last request to the session script</h2><p><code>GET /cgi-bin/bonus/clicker.py</code> reads the score, <code>POST</code> with <code>click=1</code> or <code>reset=1</code> changes it.</p></div>
+			<div id="last"></div>
+		</section>
+
 		<div class="row mt-lg">
 			<a class="btn" href="/"><i data-icon="home"></i> Home</a>
-			<a class="btn ghost" href="/bonus" data-bonus="1" hidden><i data-icon="gift"></i> Server-side sessions (bonus)</a>
+			<a class="btn ghost" href="/bonus" data-bonus="1" hidden><i data-icon="gift"></i> Bonus hub</a>
 		</div>
 	</main>
 </body>

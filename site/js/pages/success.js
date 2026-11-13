@@ -11,7 +11,7 @@
     if (!r.ok) { box.appendChild(el('div', { class: 'empty', text: 'Could not read /uploads (' + (r.ex.status || r.ex.error) + ').' })); return; }
     if (!r.data.length) { box.appendChild(el('div', { class: 'empty', text: 'No files yet.' })); return; }
     r.data.slice(-6).reverse().forEach(function (f) {
-      box.appendChild(el('a', { class: 'latest-row', href: f.href, target: '_blank', rel: 'noopener' },
+      box.appendChild(el('a', { class: 'latest-row', href: f.href },
         el('span', { class: 'job-icon' }, WS.icon(WS.ui.fileIcons.icon(f.name))), el('strong', { class: 'truncate', text: f.name }), el('span', { class: 'chip', text: f.ext || f.kind }), WS.icon('external')));
     });
   });

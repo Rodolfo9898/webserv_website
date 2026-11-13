@@ -16,18 +16,22 @@ What it shows, page by page (route in the configuration, or file under `site/` f
 | Page | Address | Feature of webserv it demonstrates |
 |---|---|---|
 | Home | `/` (`indexBonus.html` with a bonus config) | Static site, default file, live terminal with real responses |
+| Subject checklist | `/pages/checklist.html` | Every requirement of the subject (mandatory and bonus) mapped to a live demo, a diagram, a config line or a terminal command |
 | Read | `/pages/get.html` | GET, headers, redirects, directory listing, binary bodies |
 | Create | `/post`, `/succesPost` | POST multipart uploads, progress, body-size limit |
 | Delete | `/delete` | DELETE on `/uploads`, idempotency experiment |
 | CRUD manager | `/pages/crud.html` | The whole REST cycle on the `/uploads` resource |
-| CGI | `/cgi`, `/cgiPython`, `/cgiPerl` | CGI by extension, environment, stdin/stdout pipes |
+| CGI | `/cgi` (`/cgiPython` forwards here) | CGI by extension, environment, stdin/stdout pipes, the two Python scripts |
 | How it works | `/pages/how.html` | poll() loop, request lifecycle, annotated config |
 | Route explorer | `/pages/routes.html` | Every route of the config, with a live "Try it" |
 | Error lab | `/pages/errors.html` | The five configured error pages live, plus a gallery of all 40 error pages |
 | Servers | `/pages/servers.html`, `indexServer2/3.html` | Several servers and ports in one process |
 | Stress test | `/pages/stress.html` | Stability under load, throughput and latency charts |
-| Cookies | `/cookie-clicker` | Cookies stored by the browser |
-| Bonus | `/bonus`, `/bonus/cookie-clicker.html` | Sessions, cookies, Perl/Python/shell CGI (bonus configs only) |
+| Cookies and sessions | `/cookie-clicker` | One clicker: score in a server session when the server has one (bonus), in a cookie otherwise |
+| Bonus | `/bonus` (`/cgiPerl` forwards here) | Python, Perl and shell CGI, session and cookie scripts (bonus configs only) |
+
+`/cgiPython`, `/cgiPerl` and `/bonus/cookie-clicker.html` are one-line forwarding pages: the configs name those files,
+so they stay, but the content moved to `/cgi`, `/bonus` and `/cookie-clicker`.
 
 ## Instructions
 
@@ -59,7 +63,8 @@ The site only needs standard behaviour, but three things are worth knowing:
   labelled `text/plain`. If the pages show up unstyled, check the content types first.
 - Directory listing markup: links inside `.styled-list`, with hrefs that resolve to the file (`js/net/listing.js` is the only
   place that reads it).
-- No external requests: fonts are the system stack, icons are inline SVG, backgrounds are CSS and canvas.
+- No external requests: fonts are the system stack, icons and the cookie are inline SVG, backgrounds are CSS and canvas.
+  The only binary file is `favicon.ico`, the webserv logo.
 
 ### Layout of the code
 
@@ -126,7 +131,8 @@ Paths are written in the code, so a file moved here has to be changed there too:
 - the CGI scripts read `site/cgi/cgi*{Begin,End}*.html`: keep these file names, and keep the pairs balanced (the begin
   fragment opens `<main>` and a card, the end fragment closes them);
 - the upload form posts the field `binary` to `/succesPost`, the CGI upload form posts `uploadedfile` to `/cgi-bin/post.py`;
-- the session clicker uses `/cgi-bin/bonus/clicker.py` (GET returns `{session, score}`, POST `click=1` or `reset=1`).
+- the cookie clicker uses `/cgi-bin/bonus/clicker.py` (GET returns `{session, score}`, POST `click=1` or `reset=1`); when it
+  answers `session: false`, or is missing, the page keeps the score in the cookie `cookieCount` instead;
 
 ## Resources
 

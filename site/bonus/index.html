@@ -17,34 +17,39 @@
 		<header class="page-head" data-reveal>
 			<span class="eyebrow"><i data-icon="gift"></i> Bonus</span>
 			<h1>Cookies, sessions and <span class="grad-text">more CGI types.</span></h1>
-			<p class="lead">The bonus part: the server understands cookies, keeps sessions, and runs more than one kind of CGI. Each card below is a real script. Open it, or run it here and read the raw answer.</p>
+			<p class="lead">The two bonus features of the subject: cookies with session management, and several kinds of CGI (Python, Perl, shell). Each card below is a real script. Open it, or run it here and read the raw answer.</p>
 		</header>
 
-		<div class="script-grid" id="scripts"></div>
-		<div class="run-out" id="out"></div>
-
-		<section class="section">
-			<div class="sec-head" data-reveal><h2>Play with sessions and cookies</h2><p>Two clickers keep their score in two different places. The jar shows what your browser sends along.</p></div>
-			<div class="grid c3">
-				<a class="card spot lift" href="/bonus/cookie-clicker.html" data-reveal>
-					<div class="ico-lg"><i data-icon="cookie"></i></div><h3>Session clicker</h3>
-					<p>The score is stored by the server in your session and read back through a CGI script.</p>
-					<span class="more">Play <i data-icon="arrow"></i></span>
-				</a>
+		<section>
+			<div class="sec-head" data-reveal><h2>Cookies and sessions</h2><p>A session keeps the data on the server and gives the browser only an id in a cookie.</p></div>
+			<div class="script-grid" id="scripts"></div>
+			<div class="grid c2 mt">
 				<a class="card spot lift" href="/cookie-clicker" data-reveal>
 					<div class="ico-lg"><i data-icon="cookie"></i></div><h3>Cookie clicker</h3>
-					<p>The same game with the score kept in a browser cookie instead.</p>
+					<p>A game whose score lives in your server session, so it survives reloads. Falls back to a cookie when the server has no session.</p>
 					<span class="more">Play <i data-icon="arrow"></i></span>
 				</a>
 				<div class="card" data-reveal>
 					<div class="ico-lg"><i data-icon="lock"></i></div><h3>Cookie jar</h3>
-					<p class="mb">Set a cookie here, then open the <strong>Cookies</strong> script: the server shows it back to you.</p>
+					<p class="mb">Set a cookie here, then open the <strong>Cookies</strong> script above: the server shows it back to you.</p>
 					<div id="jar" class="mt"></div>
 				</div>
 			</div>
 		</section>
 
-		<div class="row mt-lg"><a class="btn" href="/"><i data-icon="home"></i> Home</a></div>
+		<section class="section" id="perl">
+			<div class="sec-head" data-reveal><h2>Another language, same contract</h2><p>Perl runs behind its own route, <code>/cgi-bin/get.pl</code>. The server does not care what language a script is written in, only which extension the route allows.</p></div>
+			<form class="card pad-lg stack" action="/cgi-bin/get.pl" method="GET" id="perl-form" data-reveal>
+				<h3><span class="method get">GET</span> get.pl</h3>
+				<label class="field"><span>name</span><input class="input" type="text" name="name" placeholder="Enter some data" required></label>
+				<label class="row"><input type="checkbox" id="perl-inline"> Inspect here instead of opening the result page</label>
+				<div class="row"><button class="btn primary" type="submit"><i data-icon="play"></i> Execute the Perl script</button></div>
+			</form>
+		</section>
+
+		<div class="run-out" id="out"></div>
+
+		<div class="row mt-lg"><a class="btn" href="/"><i data-icon="home"></i> Home</a><a class="btn ghost" href="/cgi">Python CGI</a></div>
 	</main>
 </body>
 

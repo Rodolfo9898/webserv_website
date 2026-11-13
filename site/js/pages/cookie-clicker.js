@@ -1,25 +1,14 @@
 /*
- * cookie-clicker.js - the classic clicker: the score lives in a browser cookie (cookieCount, 365 days), so the
- * browser sends it back to the server with every request. Strategy for clicker-ui.js.
+ * cookie-clicker.js - the one clicker of the site. clicker-stores.js picks where the score lives (a server session
+ * when the server has one, a browser cookie otherwise); this controller adds the cookie jar and the last exchange
+ * with the session script, so the difference is visible.
  */
 (function () {
   'use strict';
-  var NAME = 'cookieCount';
+  var $ = WS.dom.$;
+  var last = WS.ui.inspector.mount($('#last'), 'On a server with sessions, every click shows its request to the session script here.');
+  WS.bus.on('http:exchange', function (ex) { if (ex.path.indexOf(WS.pages.clickerStores.API) === 0) last.show(ex); });
 
-  function saved() {
-    var hit = WS.ui.cookieJar.read().filter(function (c) { return c.name === NAME; })[0];
-    return hit ? parseInt(hit.value, 10) || 0 : 0;
-  }
-
-  var store = {
-    init: function (api) {
-      api.set(saved());
-      api.status('The score is kept in the cookie "' + NAME + '", valid for 365 days. Reload the page: it is still here.', true);
-    },
-    click: function (api) { WS.ui.cookieJar.write(NAME, api.get(), 365); },
-    reset: function (api) { WS.ui.cookieJar.erase(NAME); api.set(0); }
-  };
-
-  WS.pages.clickerUI.mount(WS.dom.$('#game'), store);
-  WS.ui.cookieJar.mount(WS.dom.$('#jar'));
+  WS.pages.clickerUI.mount($('#game'), WS.pages.clickerStores.auto());
+  WS.ui.cookieJar.mount($('#jar'));
 }());

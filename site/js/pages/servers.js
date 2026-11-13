@@ -13,7 +13,7 @@
   function card(s) {
     var pill = el('span', { class: 'pill' }, el('i'), el('span', { text: 'checking...' }));
     pills[s.port] = pill;
-    var open = el('a', { class: 'btn sm primary', href: WS.net.features.origin(s.port) + (s.page ? '' : '/'), target: '_blank', rel: 'noopener' }, WS.icon('external'), 'Open');
+    var open = el('a', { class: 'btn sm primary', href: WS.net.features.origin(s.port) + (s.page ? '' : '/') }, WS.icon('arrow'), 'Open');
     return el('article', { class: 'card srv-big spot', 'data-reveal': true },
       el('div', { class: 'head' }, el('span', { class: 'port', text: ':' + s.port }), pill),
       el('h3', { text: s.label }),

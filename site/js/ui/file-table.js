@@ -64,7 +64,7 @@
       list.forEach(function (it) {
         body.appendChild(el('tr', null,
           el('td', { class: 'c-thumb' }, thumb(it)),
-          el('td', null, el('a', { class: 'fname', href: it.href, target: '_blank', rel: 'noopener', text: it.name })),
+          el('td', null, el('a', { class: 'fname', href: it.href, text: it.name })),
           el('td', null, el('span', { class: 'chip', text: it.ext || it.kind })),
           el('td', { class: 'mono', 'data-size': it.name, text: it.size === undefined || it.size === null ? '...' : WS.fmt.bytes(it.size) }),
           el('td', null, el('div', { class: 'row-actions' },

@@ -17,8 +17,7 @@
     'ui/toast.js', 'ui/effects.js', 'ui/background.js', 'ui/traffic.js', 'ui/inspector.js', 'ui/layout.js'
   ];
   var UPLOADS = ['net/listing.js', 'net/uploads-repo.js', 'ui/file-icons.js'];
-  var CGI_FORMS = ['pages/cgi-forms.js'];
-  var CLICKER = ['ui/cookie-jar.js', 'pages/clicker-ui.js'];
+  var CLICKER = ['ui/cookie-jar.js', 'pages/clicker-ui.js', 'pages/clicker-stores.js'];
   var ERROR_DATA = ['data/errors4.js', 'data/errors5.js'];
 
   /* page key -> extra modules (the last one is the page controller) */
@@ -31,15 +30,14 @@
     success: UPLOADS.concat(['pages/success.js']),
     delete: UPLOADS.concat(['pages/delete.js']),
     crud: UPLOADS.concat(['ui/dropzone.js', 'ui/upload-queue.js', 'ui/file-table.js', 'pages/crud.js']),
-    cgi: ['pages/cgi.js'],
-    cgiforms: CGI_FORMS,
+    cgi: ['pages/cgi.js', 'pages/cgi-forms.js'],
     how: ['pages/how-loop.js', 'pages/how-steps.js', 'pages/how.js'],
     routes: ['pages/routes.js'],
     errors: ERROR_DATA.concat(['pages/errors-lab.js']),
     servers: ['pages/servers.js'],
     stress: ['ui/linechart.js', 'pages/stress.js'],
+    checklist: ['data/checklist.js', 'pages/checklist.js'],
     clicker: CLICKER.concat(['pages/cookie-clicker.js']),
-    sessionclicker: CLICKER.concat(['pages/session-clicker.js']),
     bonus: ['ui/cookie-jar.js', 'pages/bonus.js']
   };
 

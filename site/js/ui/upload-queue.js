@@ -51,7 +51,7 @@
         job.setProgress(1);
         job.set('done', 'created · ' + ex.status, 'on');
         var item = { name: job.safe, href: WS.net.uploads.BASE + '/' + encodeURIComponent(job.safe) };
-        job.actions.appendChild(el('a', { class: 'btn sm', href: item.href, target: '_blank', rel: 'noopener' }, WS.icon('external'), 'Open'));
+        job.actions.appendChild(el('a', { class: 'btn sm', href: item.href }, WS.icon('arrow'), 'Open'));
         job.actions.appendChild(el('button', { class: 'btn sm danger', onclick: function () {
           WS.net.uploads.remove(item).then(function (r) {
             if (r.ok) { job.set('deleted', 'deleted · ' + r.ex.status, 'off'); WS.dom.clear(job.actions); } else WS.ui.toast.error('Delete failed: ' + r.ex.status);

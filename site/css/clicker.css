@@ -1,9 +1,10 @@
 /* Cookie clicker (browser cookie + server session variants), cookie jar, bonus script cards. */
 .clicker { display: grid; justify-items: center; gap: 14px; text-align: center; }
 .cookie-btn { position: relative; width: min(300px, 70vw); aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; background: none; transition: transform .15s var(--ease); -webkit-tap-highlight-color: transparent; }
-.cookie-btn img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .55)) drop-shadow(0 0 40px rgba(244, 170, 90, .25)); user-select: none; -webkit-user-drag: none; transition: filter .3s; animation: float 5s ease-in-out infinite; }
+.cookie-art { display: block; width: 100%; height: 100%; filter: drop-shadow(0 24px 36px rgba(0, 0, 0, .55)) drop-shadow(0 0 38px rgba(244, 170, 90, .28)); transition: filter .3s; animation: float 5s ease-in-out infinite; }
+.cookie-art svg { width: 100%; height: 100%; }
 .cookie-btn:hover { transform: scale(1.05) rotate(-3deg); }
-.cookie-btn:hover img { filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .55)) drop-shadow(0 0 60px rgba(244, 170, 90, .5)); }
+.cookie-btn:hover .cookie-art { filter: drop-shadow(0 24px 36px rgba(0, 0, 0, .55)) drop-shadow(0 0 60px rgba(244, 170, 90, .55)); }
 .cookie-btn:active { transform: scale(.93) rotate(2deg); }
 .particles { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
 .plus { position: absolute; font-weight: 800; font-size: 1.5rem; color: var(--warn); text-shadow: 0 2px 12px rgba(0, 0, 0, .5); animation: rise .9s ease-out forwards; }
@@ -23,6 +24,8 @@
 .jar-form { display: grid; grid-template-columns: 1fr 1fr auto; gap: 8px; }
 .jar-form .input { padding: .55em .8em; }
 .play-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+.how-list { display: grid; gap: 10px; padding-top: 16px; border-top: 1px solid var(--border); font-size: .9rem; color: var(--text-dim); }
+.how-list b { color: var(--brand-2); margin-right: 6px; }
 
 /* ---- Bonus script cards ---- */
 .script-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }

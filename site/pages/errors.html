@@ -21,14 +21,13 @@
 
 		<div class="err-grid" id="grid"></div>
 
-		<section class="section">
-			<div class="sec-head" data-reveal><h2>Every error page</h2><p>One page per HTTP error status, <span id="total">40</span> in all. Click a tile to preview it; each page shows the config line that makes the server use it.</p></div>
+		<section class="section" id="all-pages">
+			<div class="sec-head" data-reveal><h2>Every error page</h2><p>One page per HTTP error status, <span id="total">40</span> in all. Click a tile to open the page; each page shows the config line that makes the server use it.</p></div>
 			<div class="gal-bar" data-reveal>
 				<div class="tabs" id="gal-tabs" role="tablist"></div>
 				<input class="input" id="gal-q" type="search" placeholder="Filter by code or name..." aria-label="Filter error pages">
 			</div>
 			<div class="gallery" id="gallery"></div>
-			<dialog class="modal preview-dlg" id="preview"></dialog>
 		</section>
 
 		<section class="section">

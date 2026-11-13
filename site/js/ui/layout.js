@@ -23,7 +23,9 @@
 
   function navItem(item, key) {
     if (!item.items) {
-      return el('a', { class: 'nav-link' + (isActive(item, key) ? ' active' : ''), href: item.href }, item.label);
+      var link = el('a', { class: 'nav-link' + (isActive(item, key) ? ' active' : ''), href: item.href, hidden: !!item.bonus }, item.label);
+      if (item.bonus) link.setAttribute('data-bonus', '1');
+      return link;
     }
     var links = item.items.map(function (s) {
       return el('a', { href: s.href, class: s.key === key ? 'active' : '' },
@@ -84,7 +86,7 @@
   }
 
   function footer() {
-    var links = [['/', 'Home'], ['/pages/crud.html', 'CRUD'], ['/cgi', 'CGI'], ['/pages/routes.html', 'Routes'], ['/pages/errors.html', 'Errors'], ['/pages/stress.html', 'Stress test']];
+    var links = [['/', 'Home'], ['/pages/checklist.html', 'Checklist'], ['/pages/crud.html', 'CRUD'], ['/cgi', 'CGI'], ['/pages/routes.html', 'Routes'], ['/pages/errors.html', 'Errors'], ['/pages/stress.html', 'Stress test']];
     return el('footer', { class: 'site-footer' }, el('div', { class: 'ftr-inner' },
       el('div', null, el('strong', { text: 'webserv' }), el('p', { text: 'An HTTP server written from scratch in C++98. This site is served by it.' }),
         el('p', { class: 'mute', text: 'A 42 project by rperez-t, jsteenpu and abaccari.' })),

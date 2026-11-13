@@ -25,7 +25,7 @@
     { icon: 'server', title: 'Many ports, one process', text: 'Several servers declared in one config, each with its own routes and limits.', href: '/pages/servers.html', more: 'Multi-port servers', span: 'w2', viz: 'ports' },
     { icon: 'zap', title: 'Built to stay up', text: 'Non-blocking I/O from a single poll loop. Hammer it and watch the charts.', href: '/pages/stress.html', more: 'Stress test', span: 'w3', viz: 'bars' },
     { icon: 'globe', title: 'Static hosting, redirects, listings', text: 'A full static website from per-route folders, default files, HTTP redirection and generated directory listings.', href: '/pages/routes.html', more: 'Route explorer', span: 'w3' },
-    { icon: 'cookie', title: 'Cookies & sessions', text: 'Cookie handling and server-side sessions, with scripts in three languages.', href: '/bonus', more: 'Bonus hub', span: 'w6', bonus: true }
+    { icon: 'cookie', title: 'Cookies & sessions', text: 'A clicker whose score lives in a server-side session, with a plain cookie as fallback. The bonus hub adds Perl and shell CGI.', href: '/cookie-clicker', more: 'Play the clicker', span: 'w6' }
   ];
 
   var CAPS = ['HTTP server in C++98', 'poll() event loop', 'non-blocking sockets', 'multipart uploads', 'chunked bodies', 'CGI: Python · Perl · sh', 'redirects', 'directory listing', 'custom error pages', 'several ports', 'body size limits', 'cookies', 'sessions'];
@@ -53,7 +53,7 @@
         el('p', { class: 'lead', text: 'webserv is an HTTP server written from scratch: one poll loop, non-blocking sockets, CGI, uploads, redirects and several ports. This website is served by it, so every page, request and error you see here is real.' }),
         el('div', { class: 'row' },
           el('a', { class: 'btn primary lg', href: '/pages/crud.html' }, WS.icon('layers'), 'Try the CRUD manager'),
-          el('a', { class: 'btn lg', href: '/pages/how.html' }, WS.icon('activity'), 'How it works')),
+          el('a', { class: 'btn lg', href: '/pages/checklist.html' }, WS.icon('check'), 'Subject checklist')),
         el('div', { class: 'hero-pills' }, ['GET', 'POST', 'DELETE'].map(function (m) { return el('span', { class: 'method ' + m.toLowerCase(), text: m }); }),
           [['terminal', 'CGI'], ['upload', 'Uploads'], ['redirect', 'Redirects']].map(function (c) { return el('span', { class: 'chip' }, WS.icon(c[0]), c[1]); }),
           el('span', { class: 'chip bonus', hidden: true, 'data-bonus': '1' }, WS.icon('cookie'), 'Cookies & sessions'))),

@@ -16,39 +16,43 @@
 		<header class="page-head" data-reveal>
 			<span class="eyebrow"><i data-icon="terminal"></i> CGI</span>
 			<h1>Run programs, <span class="grad-text">not just files.</span></h1>
-			<p class="lead">When a route says a file extension is a CGI, the server stops reading the file and runs it instead. The script's output becomes the response. Pick an interpreter below, or watch how it works first.</p>
+			<p class="lead">When a route says a file extension is a CGI, the server stops reading the file and runs it instead. The script's output becomes the response. Watch the journey, then run the two Python scripts yourself.</p>
 		</header>
 
 		<section class="card pad-lg" data-reveal>
 			<div class="row between">
 				<h3>The journey of one CGI request</h3>
-				<div class="row"><button class="btn sm" id="play"><i data-icon="play"></i> Replay</button></div>
+				<button class="btn sm" id="play"><i data-icon="play"></i> Replay</button>
 			</div>
 			<div class="flow" id="flow"></div>
 			<div class="flow-detail" id="detail"></div>
 		</section>
 
-		<div class="grid c3 mt-lg">
-			<a class="card spot lift" href="/cgiPython" data-reveal>
-				<div class="ico-lg"><i data-icon="code"></i></div>
-				<h3>Python</h3>
-				<p>A GET script that reads <code>QUERY_STRING</code> and a POST script that receives an uploaded image.</p>
-				<span class="more">Open the forms <i data-icon="arrow"></i></span>
-			</a>
-			<a class="card spot lift" href="/cgiPerl" data-reveal>
-				<div class="ico-lg"><i data-icon="terminal"></i></div>
-				<h3>Perl</h3>
-				<p>The same contract in another language: the server does not care what the script is written in.</p>
-				<span class="more">Open the form <i data-icon="arrow"></i></span>
-			</a>
-			<a class="card spot lift" href="/bonus" data-reveal data-bonus="1" hidden>
-				<span class="chip bonus" style="position:absolute;top:20px;right:20px">Bonus</span>
-				<div class="ico-lg"><i data-icon="gift"></i></div>
-				<h3>More CGI types</h3>
-				<p>With a bonus config the same route also runs Perl and shell scripts, with cookies and sessions.</p>
-				<span class="more">Open the bonus hub <i data-icon="arrow"></i></span>
-			</a>
-		</div>
+		<section class="section">
+			<div class="sec-head" data-reveal><h2>Run a script</h2><p>Both live behind <code>/cgi-bin</code>. Submit normally to open the script's own page, or tick the box to read the raw answer here.</p></div>
+			<div class="grid c2">
+				<section class="card pad-lg" data-reveal>
+					<h3><span class="method get">GET</span> get.py</h3>
+					<p class="sub dim">Your text travels in the query string, so the script reads it from <code>QUERY_STRING</code>.</p>
+					<form class="stack mt" action="/cgi-bin/get.py" method="GET" data-cgi>
+						<label class="field"><span>name</span><input class="input" type="text" name="name" placeholder="Enter some data" required></label>
+						<div class="row"><button class="btn sm" type="button" data-fill="ada">ada</button><button class="btn sm" type="button" data-fill="hello webserv">hello webserv</button></div>
+						<label class="row"><input type="checkbox" data-inline> Inspect here instead of opening the result page</label>
+						<button class="btn primary" type="submit"><i data-icon="play"></i> Execute the GET script</button>
+					</form>
+				</section>
+				<section class="card pad-lg" data-reveal>
+					<h3><span class="method post">POST</span> post.py</h3>
+					<p class="sub dim">The image is the request body: the server pipes it to the script's standard input.</p>
+					<form class="stack mt" action="/cgi-bin/post.py" method="POST" enctype="multipart/form-data" data-cgi>
+						<label class="field"><span>uploadedfile</span><input class="input" type="file" name="uploadedfile" accept="image/*" required></label>
+						<label class="row"><input type="checkbox" data-inline> Inspect here instead of opening the result page</label>
+						<button class="btn primary" type="submit"><i data-icon="play"></i> Execute the POST script</button>
+					</form>
+				</section>
+			</div>
+			<div class="mt" id="out"></div>
+		</section>
 
 		<section class="section">
 			<div class="sec-head" data-reveal><h2>What a script can rely on</h2><p>The CGI convention: request data arrives as environment variables, the body arrives on standard input, and anything printed to standard output is the answer.</p></div>
@@ -56,7 +60,7 @@
 				<div class="card" data-reveal><h3>Environment</h3><div class="env-grid" id="env"></div></div>
 				<div class="card" data-reveal>
 					<h3>Route that enables it</h3>
-					<pre class="code-block"><span class="k">Route</span> /cgi-bin ;
+					<pre class="code-block mt"><span class="k">Route</span> /cgi-bin ;
 <span class="k">method</span> [GET,POST] ;
 <span class="k">entry</span> ./cgi ;
 <span class="k">defPage</span> /get.py ;
@@ -65,6 +69,7 @@
 					<p class="mt">The extension after <code>allowed</code> is what turns a file into a program.</p>
 				</div>
 			</div>
+			<div class="callout bonus mt" data-reveal data-bonus="1" hidden><i data-icon="gift"></i><p>Perl and shell scripts run through the same mechanism with the bonus config: see <a class="link" href="/bonus">the bonus hub</a>.</p></div>
 		</section>
 	</main>
 </body>
