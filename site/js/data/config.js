@@ -37,17 +37,52 @@
 
   var errors = [
     { codes: [400], file: '/site/errors/error400.html' },
+    { codes: [401], file: '/site/errors/error401.html' },
+    { codes: [402], file: '/site/errors/error402.html' },
+    { codes: [403], file: '/site/errors/error403.html' },
     { codes: [404], file: '/site/errors/error404.html' },
     { codes: [405], file: '/site/errors/error405.html' },
+    { codes: [406], file: '/site/errors/error406.html' },
+    { codes: [407], file: '/site/errors/error407.html' },
+    { codes: [408], file: '/site/errors/error408.html' },
+    { codes: [409], file: '/site/errors/error409.html' },
+    { codes: [410], file: '/site/errors/error410.html' },
+    { codes: [411], file: '/site/errors/error411.html' },
+    { codes: [412], file: '/site/errors/error412.html' },
     { codes: [413], file: '/site/errors/error413.html' },
-    { codes: [500, 502, 504], file: '/site/errors/error500.html' }
+    { codes: [414], file: '/site/errors/error414.html' },
+    { codes: [415], file: '/site/errors/error415.html' },
+    { codes: [416], file: '/site/errors/error416.html' },
+    { codes: [417], file: '/site/errors/error417.html' },
+    { codes: [418], file: '/site/errors/error418.html' },
+    { codes: [421], file: '/site/errors/error421.html' },
+    { codes: [422], file: '/site/errors/error422.html' },
+    { codes: [423], file: '/site/errors/error423.html' },
+    { codes: [424], file: '/site/errors/error424.html' },
+    { codes: [425], file: '/site/errors/error425.html' },
+    { codes: [426], file: '/site/errors/error426.html' },
+    { codes: [428], file: '/site/errors/error428.html' },
+    { codes: [429], file: '/site/errors/error429.html' },
+    { codes: [431], file: '/site/errors/error431.html' },
+    { codes: [451], file: '/site/errors/error451.html' },
+    { codes: [500], file: '/site/errors/error500.html' },
+    { codes: [501], file: '/site/errors/error501.html' },
+    { codes: [502], file: '/site/errors/error502.html' },
+    { codes: [503], file: '/site/errors/error503.html' },
+    { codes: [504], file: '/site/errors/error504.html' },
+    { codes: [505], file: '/site/errors/error505.html' },
+    { codes: [506], file: '/site/errors/error506.html' },
+    { codes: [507], file: '/site/errors/error507.html' },
+    { codes: [508], file: '/site/errors/error508.html' },
+    { codes: [510], file: '/site/errors/error510.html' },
+    { codes: [511], file: '/site/errors/error511.html' }
   ];
 
   var servers = [
-    { id: 'main', port: 4442, label: 'Main server', config: 'defaultConfig.conf', domains: ['test.com', 'rest.com', '1.com'], bodySize: '-1', routes: 14, errors: 5, note: 'The full site' },
-    { id: 'single', port: 4443, label: 'Single server', config: 'singleServeConfig.conf', domains: ['test.com', 'rest.com', '1.com'], bodySize: '-1', routes: 14, errors: 5, note: 'Same site, own config' },
-    { id: 'multi-a', port: 4444, label: 'Multi A', config: 'multiServerConfig.conf', domains: ['test.com', 'rest.com', '1.com'], bodySize: '-1', routes: 1, errors: 2, note: 'First of two servers in one config', page: '/indexServer2.html' },
-    { id: 'multi-b', port: 4445, label: 'Multi B', config: 'multiServerConfig.conf', domains: ['test2.com', 'rest2.com', '12.com'], bodySize: '1000', routes: 1, errors: 2, note: 'Second server, body size capped at 1000', page: '/indexServer3.html' }
+    { id: 'main', port: 4442, label: 'Main server', config: 'defaultConfig.conf', domains: ['test.com', 'rest.com', '1.com'], bodySize: '-1', routes: 14, errors: 40, note: 'The full site' },
+    { id: 'single', port: 4443, label: 'Single server', config: 'singleServeConfig.conf', domains: ['test.com', 'rest.com', '1.com'], bodySize: '-1', routes: 14, errors: 40, note: 'Same site, own config' },
+    { id: 'multi-a', port: 4444, label: 'Multi A', config: 'multiServerConfig.conf', domains: ['test.com', 'rest.com', '1.com'], bodySize: '-1', routes: 1, errors: 40, note: 'First of two servers in one config', page: '/indexServer2.html' },
+    { id: 'multi-b', port: 4445, label: 'Multi B', config: 'multiServerConfig.conf', domains: ['test2.com', 'rest2.com', '12.com'], bodySize: '1000', routes: 1, errors: 40, note: 'Second server, body size capped at 1000', page: '/indexServer3.html' }
   ];
 
   var methods = [
