@@ -16,18 +16,16 @@
 		<header class="page-head" data-reveal>
 			<span class="eyebrow"><i data-icon="alert"></i> Error pages</span>
 			<h1>Break it <span class="grad-text">on purpose.</span></h1>
-			<p class="lead">Status codes must be accurate, and every error has a page. The configuration sets all 40 of them. Trigger the ones a browser can cause, copy a command for the rest.</p>
+			<p class="lead">Status codes must be accurate, and every error has a page. The configuration sets all <span id="total">40</span>, and each one has a real test here: what the request breaks, why that gives the code, and where the decision is made. Then trigger it.</p>
 		</header>
 
-		<div class="err-grid" id="grid"></div>
-
 		<section class="section" id="all-pages">
-			<div class="sec-head" data-reveal><h2>Every error page</h2><p>One page per HTTP error status, <span id="total">40</span> in all. Click a tile to open the page; each page shows the config line that makes the server use it.</p></div>
+			<div class="sec-head" data-reveal><h2>Trigger any error</h2><p><b id="by-server">18</b> codes are decided by webserv itself. The other <b id="by-app">22</b> are never sent by an HTTP server on its own: an application behind it decides them. For those, small CGI applications (<code>cgi/errors/app.py</code>) each check one real rule, and webserv serves the configured page for their answer. <b>Trigger</b> breaks the rule; <b>Valid request</b> sends one that passes the same check. Requests a browser cannot write (a broken request line, a missing Content-Length, a forbidden header) are sent raw by <code>cgi/errors/probe.py</code>, which shows both sides. Every tile also has the same test as a terminal command.</p></div>
 			<div class="gal-bar" data-reveal>
 				<div class="tabs" id="gal-tabs" role="tablist"></div>
-				<input class="input" id="gal-q" type="search" placeholder="Filter by code or name..." aria-label="Filter error pages">
+				<input class="input" id="gal-q" type="search" placeholder="Filter by code or name..." aria-label="Filter error codes">
 			</div>
-			<div class="gallery" id="gallery"></div>
+			<div class="trig-grid" id="grid"></div>
 		</section>
 
 		<section class="section">

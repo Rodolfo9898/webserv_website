@@ -24,7 +24,7 @@ What it shows, page by page (route in the configuration, or file under `site/` f
 | CGI | `/cgi` (`/cgiPython` forwards here) | CGI by extension, environment, stdin/stdout pipes, the two Python scripts |
 | How it works | `/pages/how.html` | poll() loop, request lifecycle, annotated config |
 | Route explorer | `/pages/routes.html` | Every route of the config, with a live "Try it" |
-| Error lab | `/pages/errors.html` | The five configured error pages live, plus a gallery of all 40 error pages |
+| Error lab | `/pages/errors.html` | A real test for each of the 40 error codes: why it happens, where it is decided, a trigger and a terminal command |
 | Servers | `/pages/servers.html`, `indexServer2/3.html` | Several servers and ports in one process |
 | Stress test | `/pages/stress.html` | Stability under load, throughput and latency charts |
 | Cookies and sessions | `/cookie-clicker` | One clicker: score in a server session when the server has one (bonus), in a cookie otherwise |
@@ -109,17 +109,20 @@ a real update possible.
 
 ### Error pages
 
-The configs select five of them (`errors` lines for 400, 404, 405, 413 and, for 500, 502 and 504 together, 500). The
-others are ready to use: every page shows, at the bottom, the exact line that makes the server send it, for example
+The configs set all 40 pages, one `errors` line per status, for example
 
 ```
 errors /site/errors/error403.html [403] ;
-errors /site/errors/error502.html [502] ;
 ```
 
-Add it to a Server block to switch a page on (the `% n ;` line before the `errors` lines looks like a count in the
-existing configs, so keep it in step). To change a text, edit its catalog entry and the matching static page: the HTML
+To change a text, edit its catalog entry (`js/data/errors4.js`, `errors5.js`) and the matching static page: the HTML
 file only repeats the title and the lead for browsers without JavaScript.
+
+The error lab (`js/data/error-tests.js`) has one test per code. 18 codes are decided by webserv itself; the other 22
+come from small CGI applications in the server repository (`cgi/errors/app.py`), each checking one real rule.
+Requests a browser cannot write are sent raw by `cgi/errors/probe.py`. Some tests rely on fixtures:
+`uploads/lab-folder/` (409), the `/loop-a` and `/loop-b` routes of the configs (508), and
+`cgi/errors/not_executable.py` staying mode 644 (500).
 
 ### Keeping it in sync
 

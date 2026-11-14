@@ -21,7 +21,7 @@
         { key: 'checklist', label: 'Subject checklist', desc: 'Every requirement, one click away', href: '/pages/checklist.html', icon: 'check' },
         { key: 'how', label: 'How it works', desc: 'Event loop and request lifecycle', href: '/pages/how.html', icon: 'activity' },
         { key: 'routes', label: 'Route explorer', desc: 'Every route of the config, live', href: '/pages/routes.html', icon: 'route' },
-        { key: 'errors', label: 'Error lab', desc: 'All 40 error pages', href: '/pages/errors.html', icon: 'alert' },
+        { key: 'errors', label: 'Error lab', desc: 'Trigger all 40 errors', href: '/pages/errors.html', icon: 'alert' },
         { key: 'servers', label: 'Multi-port servers', desc: 'Several servers, one process', href: '/pages/servers.html', icon: 'server' },
         { key: 'stress', label: 'Stress test', desc: 'Hammer /siege from your browser', href: '/pages/stress.html', icon: 'zap' }
       ]

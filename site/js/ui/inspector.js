@@ -39,6 +39,8 @@
     var reqHdr = Object.keys(ex.requestHeaders).map(function (k) { return k + ': ' + ex.requestHeaders[k]; });
     var out = [ex.method + ' ' + ex.path + ' ' + proto(ex), 'Host: ' + location.host].concat(reqHdr);
     if (ex.requestBody) out.push('', String(ex.requestBody).slice(0, 600));
+    /* A request written byte for byte (by a probe) is shown as it was sent. */
+    if (ex.rawRequest) out = [ex.rawRequest.replace(/\r\n/g, '\n').replace(/\n+$/, '')];
     out.push('', '');
     out.push(proto(ex) + ' ' + ex.status + ' ' + (ex.statusText || WS.net.status.describe(ex.status).phrase));
     ex.headers.forEach(function (h) { out.push(h[0] + ': ' + h[1]); });

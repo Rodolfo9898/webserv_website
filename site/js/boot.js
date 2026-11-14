@@ -33,7 +33,7 @@
     cgi: ['pages/cgi.js', 'pages/cgi-forms.js'],
     how: ['pages/how-loop.js', 'pages/how-steps.js', 'pages/how.js'],
     routes: ['pages/routes.js'],
-    errors: ERROR_DATA.concat(['pages/errors-lab.js']),
+    errors: ERROR_DATA.concat(['data/error-tests.js', 'pages/errors-lab.js']),
     servers: ['pages/servers.js'],
     stress: ['ui/linechart.js', 'pages/stress.js'],
     checklist: ['data/checklist.js', 'pages/checklist.js'],
